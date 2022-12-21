@@ -1,0 +1,134 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: linear-gradient(135deg, #222, #000);
+    min-height: 100vh;
+    font-family: 'Montserrat', sans-serif;
+    display: grid;
+    grid-template: 70px 1fr 250px / 1fr 80vw 1fr;
+}
+
+.card {
+    background: rgba(255, 255, 255, .05);
+    box-shadow: 2px 2px 3px rgba(0, 0, 0, .5);
+    border: 1px solid rgba(255, 255, 255, .25);
+    border-top: 2px solid rgba(255, 255, 255, .1);
+    border-left: 2px solid rgba(255, 255, 255, .1);
+    border-radius: .5rem;
+    backdrop-filter: blur(30px);
+    color: #fff;
+    z-index: 1;
+}
+
+.form {
+    max-width: 500px;
+    display: grid;
+    padding: 2rem;
+}
+
+.form__title {
+    width: 100%;
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 1.5rem 0;
+}
+
+.form__area {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.form__field {
+    position: relative;
+    width: 100%;
+    padding: 0 0 1rem 0;
+    margin: 15px 0 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.form__input-box {
+    position: relative;
+    width: 100%;
+    height: 40px;
+}
+
+.form__input-box input {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    outline: none;
+    font-size: 1rem;
+    padding: 0 10px;
+    z-index: 1;
+    color: transparent;
+    left: 0;
+    font-weight: 700;
+}
+
+.form__input-box input:focus,
+.form__input-box input:valid {
+    color: #333;
+    transition: 1s;
+}
+
+.form__label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    line-height: 40px;
+    font-size: 18px;
+    padding: 0 10px;
+    display: block;
+    transition: .5s;
+    color: #fff;
+}
+
+.form__input-box input:focus+.form__label,
+.form__input-box input:valid+.form__label {
+    top: -35px;
+    left: -10px;
+}
+
+.form__line {
+    position: absolute;
+    bottom: 0;
+    display: block;
+    width: 100%;
+    height: 3px;
+    background: #fc0;
+    transition: .5s;
+    border-radius: 2px;
+}
+
+.form__input-box input:focus~.form__line,
+.form__input-box input:valid~.form__line {
+    color: #000;
+    height: 100%;
+}
+
+.form__btn-submit {
+    border: none;
+    padding: 10px 40px;
+    outline: none;
+    background: #fc0;
+    color: #000;
+    font-weight: 600;
+    font-size: 18px;
+    border-radius: 10px;
+    text-decoration: none;
+    cursor: pointer;
+}
