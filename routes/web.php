@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\PanelController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 
@@ -23,3 +24,4 @@ Route::get('/login', [LoginController::class, 'index'])->name('login.index');
 Route::post('/validar-login', [LoginController::class, 'autenticar']);
 Route::get('/registrar', [UsersController::class, 'create'])->name('users.create');
 Route::post('/registrar', [UsersController::class, 'store'])->name('users.store');
+Route::get('/dashboard', [PanelController::class, 'index'])->name('panel.index');

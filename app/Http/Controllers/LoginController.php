@@ -13,8 +13,7 @@ class LoginController
             return redirect()->back()->withErrors('Usuário ou senha inválidos');
         }
 
-        // return to_route('painel.index');
-        return view('welcome');
+        return to_route('panel.index');
     }
 
     public function index()
