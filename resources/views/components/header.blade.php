@@ -34,4 +34,5 @@
             <a class="lateral-menu__link" href="/logout">Sair</a>
         </li>
     </ul>
+</nav>
 </header>

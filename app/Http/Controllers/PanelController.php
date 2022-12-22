@@ -15,7 +15,9 @@ class PanelController extends Controller
     public function index()
     {
         $clients = DB::select('SELECT * FROM users WHERE admin_mode = 0');
-        return view('panel.index')->with('clients', $clients);
+        return view('panel.index')
+            ->with('clients', $clients)
+            ->with('style', 'css/panel/style.css');
     }
 
     /**

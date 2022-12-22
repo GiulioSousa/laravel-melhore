@@ -1,4 +1,4 @@
-<x-layout title="Painel administrativo | Melhore">
+<x-layout title="Painel administrativo | Melhore" :style="$style">
     <x-header/>
     <main class="main-container">
         <ul class="client-list">
@@ -9,8 +9,7 @@
                         <h3 class="client-card__title">{{ $client->login }}</h3>
                         <span class="client-card__description">Clique para mais informações</span>
                     </a>
-                </li>
-                
+                </li>  
             @endforeach
             <li class="client-card client-card--new card">
                 <a href="/novo-cliente" class="client-card__link">

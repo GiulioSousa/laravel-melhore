@@ -9,4 +9,9 @@ mix
         'resources/css/login/login.css',
         'resources/css/login/style.css',
     ],
-        'public/css/login/login.css').version();
+        'public/css/login/login.css')
+    .styles([
+        'resources/css/style.css',
+        'resources/css/style-responsive.css'
+    ],
+        'public/css/panel/style.css').version();
