@@ -14,4 +14,6 @@ mix
         'resources/css/style.css',
         'resources/css/style-responsive.css'
     ],
-        'public/css/panel/style.css').version();
+        'public/css/panel/style.css')
+    .scripts(['resources/js/header.js'], 'public/js/header.js')
+    .version();

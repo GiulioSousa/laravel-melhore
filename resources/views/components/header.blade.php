@@ -1,6 +1,6 @@
 <header class="header">
-    <img src="/assets/img/logo-transp.png" alt="" class="header__logo" id="logo-transp">
-    <img src="/assets/img/logo-color.png" alt="" class="header__logo header__logo--invisible" id="logo-color">
+    <img src="{{ asset('img/logo-transp.png') }}" alt="" class="header__logo" id="logo-transp">
+    <img src="{{ asset('img/logo-color.png') }}" alt="" class="header__logo header__logo--invisible" id="logo-color">
     <ul class="menu__list">
         <li>
             <a class="menu__link" id="menu-inicio" href="#">Home</a>
@@ -13,8 +13,8 @@
         </li>
     </ul>
     <div class="header-profile">
-        <p class="header-profile__name">Nome de usuário</p>
-        <img src="/assets/img/userphoto" alt="" class="header-profile__avatar">
+        <p class="header-profile__name">{{ $user }}</p>
+        <img src="{{ asset('img/profile/profile-blank.png') }}" alt="" class="header-profile__avatar">
     </div>
 </header>
 <button class="header__menu card">

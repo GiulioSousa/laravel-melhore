@@ -9,4 +9,4 @@
     <p class="footer__copy">MELHORE. Todos os direitos reservados.</p>
     <p class="footer__copy"><a href="https://br.freepik.com/vetores-gratis/icones-de-midia-social-plana-com-sombras_2607368.htm#query=icones%20redes%20sociais&position=1&from_view=keyword">Image by starline</a> on Freepik</p>
 </footer>
-<script src="/assets/js/header.js"></script>
+<script src="{{ asset('js/header.js') }}"></script>

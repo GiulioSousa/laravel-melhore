@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class PanelController extends Controller
@@ -14,10 +16,12 @@ class PanelController extends Controller
      */
     public function index()
     {
+        $user = Auth::user()->login;
         $clients = DB::select('SELECT * FROM users WHERE admin_mode = 0');
         return view('panel.index')
             ->with('clients', $clients)
-            ->with('style', 'css/panel/style.css');
+            ->with('style', 'css/panel/style.css')
+            ->with('user', $user);
     }
 
     /**
