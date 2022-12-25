@@ -3,7 +3,7 @@
     <img src="{{ asset('img/logo-color.png') }}" alt="" class="header__logo header__logo--invisible" id="logo-color">
     <ul class="menu__list">
         <li>
-            <a class="menu__link" id="menu-inicio" href="#">Home</a>
+            <a class="menu__link" id="menu-inicio" href="{{ route($home) }}">Home</a>
         </li>
         <li>
             <a class="menu__link" id="menu-laudo" href="/info-conta">Informações da conta</a>

@@ -1,6 +1,6 @@
 <footer class="footer" id="rodape">
     <div class="footer__container">
-        <img class="footer__icon footer__logo" src="/assets/img/logo-transp.png" alt="">
+        <img class="footer__icon footer__logo" src="{{ asset('img/logo-transp.png') }}" alt="">
         <a href="http://wa.me/556186721482" class="footer__icon icon--wpp">
         </a>
         <span class="footer__icon icon--yt"></span>

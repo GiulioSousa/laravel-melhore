@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
-class PanelController extends Controller
+class ClientAreaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,13 +17,11 @@ class PanelController extends Controller
     {
         $user = Auth::user()->login;
         
-        $clients = DB::select('SELECT * FROM users WHERE admin_mode = 0');
-        return view('panel.index')
-            ->with('home', 'panel.index')
-            ->with('clients', $clients)
+        return view('client-area.index')
+            ->with('home', 'client-area.index')
+            ->with('title', 'Home - Área do cliente | melhore')
             ->with('style', 'css/style.css')
             ->with('user', $user);
-        
     }
 
     /**

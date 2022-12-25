@@ -13,12 +13,19 @@ class LoginController
             return redirect()->back()->withErrors('Usuário ou senha inválidos');
         }
 
-        return to_route('panel.index');
+        if (Auth::user()->admin_mode) {
+            return to_route('panel.index');
+        }
+
+        return to_route('client-area.index');
+
     }
 
     public function index()
     {
-        return view('login.index');
+        return view('login.index')
+        ->with('title', 'Login - Área do cliente | Melhore')
+        ->with('style', 'css/login/login.css');
     }
 
     public function destroy()
