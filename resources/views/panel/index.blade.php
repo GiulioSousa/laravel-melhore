@@ -4,7 +4,7 @@
         <ul class="client-list">
             @foreach ($clients as $client)
                 <li class="client-card card">
-                    <a href="/cliente-info?id={{ $client->id }}" class="client-card__link">
+                    <a href="{{ route('client-info.index', $client->id) }}" class="client-card__link">
                         <img src="{{ asset('img/profile/profile-blank.png') }}" alt="" class="client-card__img">
                         <h3 class="client-card__title">{{ $client->login }}</h3>
                         <span class="client-card__description">Clique para mais informações</span>
@@ -19,5 +19,5 @@
             </li>
         </ul>
     </main>
-    <x-footer/>
+    <x-footer />
 </x-layout>

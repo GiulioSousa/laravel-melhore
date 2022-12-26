@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class LoginController
 {
@@ -27,11 +29,28 @@ class LoginController
         ->with('title', 'Login - Área do cliente | Melhore')
         ->with('style', 'css/login/login.css');
     }
+    
+    public function create()
+    {
+        return view('login.create')
+        ->with('style', 'css/login/login.css');
+    }
+
+    public function store(Request $request)
+    {
+        $data = $request->except(['_token']);
+        $data['password'] = Hash::make($data['password']);
+        
+        User::create($data);
+        
+        return to_route('login.index');
+    
+    }
 
     public function destroy()
     {
         Auth::logout();
-
+    
         return to_route('login.index');
     }
 }

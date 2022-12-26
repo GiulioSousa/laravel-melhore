@@ -1,9 +1,10 @@
 <?php
 
 use App\Http\Controllers\ClientAreaController;
+use App\Http\Controllers\ClientInfoController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PanelController;
-use App\Http\Controllers\UsersController;
+use App\Http\Controllers\VideoController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,7 +24,11 @@ Route::get('/', function () {
 
 Route::get('/login', [LoginController::class, 'index'])->name('login.index');
 Route::post('/validar-login', [LoginController::class, 'autenticar']);
-Route::get('/registrar', [UsersController::class, 'create'])->name('users.create');
-Route::post('/registrar', [UsersController::class, 'store'])->name('users.store');
+Route::get('/registrar', [LoginController::class, 'create'])->name('login.create');
+Route::post('/registrar', [LoginController::class, 'store'])->name('login.store');
 Route::get('/dashboard', [PanelController::class, 'index'])->name('panel.index');
 Route::get('/area-cliente', [ClientAreaController::class, 'index'])->name('client-area.index');
+Route::get('/novo-video', [VideoController::class, 'create'])->name('video.create');
+Route::post('/Adicionar-video', [VideoController::class, 'store'])->name('video.store');
+Route::get('/cliente-info/{id}', [ClientInfoController::class, 'index'])->name('client-info.index');
+Route::get('/logout', [LoginController::class, 'destroy'])->name('login.destroy');

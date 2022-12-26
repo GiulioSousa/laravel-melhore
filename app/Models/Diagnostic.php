@@ -17,4 +17,9 @@ class Diagnostic extends Model
     protected $fillable = [
         'diagnostic_text'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

@@ -31,4 +31,19 @@ class User extends Authenticatable
         'password',
         'admin_mode'
     ];
+
+    public function videos()
+    {
+        return $this->hasMany(Video::class, 'users_id');
+    }
+
+    public function metrics()
+    {
+        return $this->hasMany(Metric::class, 'user_id');
+    }
+
+    public function diagnostics()
+    {
+        return $this->hasMany(Diagnostic::class, 'users_id');
+    }
 }

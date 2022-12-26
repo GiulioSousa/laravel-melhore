@@ -20,4 +20,9 @@ class Video extends Model
         'url',
         'tag'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

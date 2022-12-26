@@ -18,4 +18,9 @@ class Metric extends Model
         'date',
         'metric_data'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
