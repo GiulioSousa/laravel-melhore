@@ -1,0 +1,4 @@
+<x-layout title="{{ $title }}" :style="$style" >
+    <x-header :user="$user" :home="$home" />
+    <x-footer />
+</x-layout>

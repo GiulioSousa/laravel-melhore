@@ -28,7 +28,8 @@ Route::get('/registrar', [LoginController::class, 'create'])->name('login.create
 Route::post('/registrar', [LoginController::class, 'store'])->name('login.store');
 Route::get('/dashboard', [PanelController::class, 'index'])->name('panel.index');
 Route::get('/area-cliente', [ClientAreaController::class, 'index'])->name('client-area.index');
-Route::get('/novo-video', [VideoController::class, 'create'])->name('video.create');
+Route::get('/novo-video/{id}/{tag}', [VideoController::class, 'create'])->name('video.create');
 Route::post('/Adicionar-video', [VideoController::class, 'store'])->name('video.store');
 Route::get('/cliente-info/{id}', [ClientInfoController::class, 'index'])->name('client-info.index');
 Route::get('/logout', [LoginController::class, 'destroy'])->name('login.destroy');
+Route::get('/novo-video/{tag}', [VideoController::class, 'create'])->name('video.create');

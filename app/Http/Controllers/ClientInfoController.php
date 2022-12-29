@@ -41,7 +41,8 @@ class ClientInfoController extends Controller
                 'diagnostics' => $diagnostics,
                 'videosWhatDo' => $videosWhatDo,
                 'videosHowDo' => $videosHowDo,
-                'videosTeam' => $videosTeam
+                'videosTeam' => $videosTeam,
+                'id' => $id
             ]);
     }
 

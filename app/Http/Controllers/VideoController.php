@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use App\Models\Video;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -22,15 +24,18 @@ class VideoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
         $user = Auth::user()->login;
 
-        return view('video.create')
-            ->with('title', 'Novo video - Painel administrativo | Melhore')
-            ->with('home', 'panel.index')
-            ->with('style', 'css/style.css')
-            ->with('user', $user);
+        return view('video.create')->with([
+            'title' => 'Novo video - Painel administrativo | Melhore',
+            'home' => 'panel.index',
+            'style' => 'css/style.css',
+            'user' => $user,
+            'user_id' => $request->id,
+            'tag' => $request->tag
+        ]);
     }
 
     /**
@@ -41,8 +46,12 @@ class VideoController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request);
-        return view('welcome');
+        $client = User::find($request->user_id);
+        $data = $request->except('_token');
+        $data['tag'] = $request->tag;      
+        $client->videos()->create($data);
+
+        return to_route('client-info.index', $request->user_id);
     }
 
     /**

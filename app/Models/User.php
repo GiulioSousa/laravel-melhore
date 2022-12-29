@@ -34,16 +34,16 @@ class User extends Authenticatable
 
     public function videos()
     {
-        return $this->hasMany(Video::class, 'users_id');
+        return $this->hasMany(Video::class, 'users_id', 'id');
     }
 
     public function metrics()
     {
-        return $this->hasMany(Metric::class, 'user_id');
+        return $this->hasMany(Metric::class, 'users_id', 'id');
     }
 
     public function diagnostics()
     {
-        return $this->hasMany(Diagnostic::class, 'users_id');
+        return $this->hasMany(Diagnostic::class, 'users_id', 'id');
     }
 }

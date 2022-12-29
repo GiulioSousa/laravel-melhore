@@ -1,4 +1,4 @@
-<x-layout title="Informações do cliente | Melhore" :style="$style" :user="$user" :home="$home">
+<x-layout title="Informações do cliente | Melhore" :style="$style">
     <x-header :user="$user" :home="$home" />
         <main class="main-container">
         <h1 class="section-title">Conteúdo - {{ $clientName }}</h1>
@@ -15,7 +15,7 @@
                 </div>
             @endforeach 
             <button class="item-btn-add">
-                <a href="/novo-video">
+                <a href="{{ route('video.create', ['id' => $id, 'tag' => 'highlight']) }}">
                     <span>Adicionar novo conteúdo</span>
                 </a>
             </button>
@@ -87,7 +87,7 @@
                     </li>
                 @endforeach
                 <button class="item-btn-add">
-                    <a href="/novo-video" class="btn-add-border">
+                    <a href="{{ route('video.create', ['id' => $id, 'tag' => 'whatDo']) }}" class="btn-add-border">
                         <span>Adicionar novo conteúdo</span>
                     </a>
                 </button>
@@ -111,7 +111,7 @@
                     </li>
                 @endforeach
                 <button class="item-btn-add">
-                    <a href="/novo-video" class="btn-add-border">
+                    <a href="{{ route('video.create', ['id' => $id, 'tag' => 'howDo']) }}" class="btn-add-border">
                         <span>Adicionar novo conteúdo</span>
                     </a>
                 </button>
@@ -135,7 +135,7 @@
                     </li>
                 @endforeach
                 <button class="item-btn-add">
-                    <a href="/novo-video" class="btn-add-border">
+                    <a href="{{ route('video.create', ['id' => $id, 'tag' => 'team']) }}" class="btn-add-border">
                         <span>Adicionar novo conteúdo</span>
                     </a>
                 </button>
