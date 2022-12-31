@@ -3,11 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use App\Models\Video;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class VideoController extends Controller
+class DiagnosticController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -28,13 +27,12 @@ class VideoController extends Controller
     {
         $user = Auth::user()->login;
 
-        return view('video.create')->with([
-            'title' => 'Novo video - Painel administrativo | Melhore',
+        return view('diagnostic.create')->with([
+            'title' => 'Novo diagnóstico - Painel administrativo | Melhore',
             'home' => 'panel.index',
             'style' => 'css/style.css',
             'user' => $user,
-            'user_id' => $request->id,
-            'tag' => $request->tag
+            'user_id' => $request->id
         ]);
     }
 
@@ -47,10 +45,9 @@ class VideoController extends Controller
     public function store(Request $request)
     {
         $data = $request->except('_token');
-        $data['tag'] = $request->tag;      
-        
+               
         $client = User::find($request->user_id);
-        $client->videos()->create($data);
+        $client->diagnostics()->create($data);
 
         return to_route('client-info.index', $request->user_id);
     }

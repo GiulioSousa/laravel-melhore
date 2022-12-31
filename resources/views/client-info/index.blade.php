@@ -33,7 +33,7 @@
                 <tbody>
                     @foreach ($metrics as $metric)
                         <tr>
-                            <td>{{ $metric->date }}</td>
+                            <td>{{ date('d-m-Y', strtotime($metric->date)) }}</td>
                             <td>{{ $metric->metric_data }}</td>
                             <td>
                                 <div class="metric-menu">
@@ -48,7 +48,7 @@
                 </tbody>
             </table>
             <button class="item-btn-add">
-                <a href="/nova-metrica" class="btn-add-border">
+                <a href="{{ route('metric.create', ['id' => $id]) }}" class="btn-add-border">
                     <span>Adicionar novo conteúdo</span>
                 </a>
             </button>
@@ -64,7 +64,7 @@
                 </div>
             @endforeach
             <button class="item-btn-add">
-                <a href="/novo-diagnostico" class="btn-add-border">
+                <a href="{{ route('diagnostic.create', ['id' => $id]) }}" class="btn-add-border">
                     <span>Adicionar novo conteúdo</span>
                 </a>
             </button>
