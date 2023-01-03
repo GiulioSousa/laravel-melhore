@@ -72,9 +72,19 @@ class VideoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, Video $video)
     {
-        //
+        $video = Video::find($request->id);
+        $user = Auth::user()->login;
+        // dd($video);
+
+        return view('video.edit')->with([
+            'title' => 'Editar video - Painel administrativo | Melhore',
+            'home' => 'panel.index',
+            'style' => 'css/style.css',
+            'user' => $user,
+            'video' => $video
+        ]);
     }
 
     /**
@@ -84,9 +94,12 @@ class VideoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Video $video, Request $request, $id)
     {
-        //
+        $video = Video::find($id);
+        $video->update($request->except('_token'));
+
+        return to_route('panel.index');
     }
 
     /**

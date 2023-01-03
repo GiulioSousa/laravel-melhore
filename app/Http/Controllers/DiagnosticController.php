@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Diagnostic;
+use App\Models\Metric;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -69,9 +71,18 @@ class DiagnosticController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, Diagnostic $diagnostic)
     {
-        //
+        $diagnostic = Diagnostic::find($request->id);
+        $user = Auth::user()->login;
+
+        return view('diagnostic.edit')->with([
+            'title' => 'Editar diagnóstico - Painel administrativo | Melhore',
+            'home' => 'panel.index',
+            'style' => 'css/style.css',
+            'user' => $user,
+            'diagnostic' => $diagnostic
+        ]);
     }
 
     /**
@@ -81,9 +92,12 @@ class DiagnosticController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Diagnostic $diagnostic, Request $request, $id)
     {
-        //
+        $diagnostic = Diagnostic::find($id);
+        $diagnostic->update($request->except('_token'));
+
+        return to_route('panel.index');
     }
 
     /**

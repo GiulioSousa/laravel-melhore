@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Metric;
 use App\Models\User;
 use DateTimeImmutable;
 use Illuminate\Http\Request;
@@ -60,9 +61,18 @@ class MetricController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, Metric $metric)
     {
-        //
+        $metric = Metric::find($request->id);
+        $user = Auth::user()->login;
+
+        return view('metric.edit')->with([
+            'title' => 'Editar métrica - Painel administrativo | Melhore',
+            'home' => 'panel.index',
+            'style' => 'css/style.css',
+            'user' => $user,
+            'metric' => $metric
+        ]);
     }
 
     /**
@@ -72,9 +82,12 @@ class MetricController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Metric $metric, Request $request, $id)
     {
-        //
+        $metric = Metric::find($id);
+        $metric->update($request->except('_token'));
+
+        return to_route('panel.index');
     }
 
     /**
