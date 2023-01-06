@@ -98,6 +98,8 @@ class MetricController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $metric = Metric::find($id);
+        $metric->delete();
+        return to_route('panel.index');
     }
 }

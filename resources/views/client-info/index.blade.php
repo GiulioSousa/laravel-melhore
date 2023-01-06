@@ -10,8 +10,12 @@
                 </div>
                 <p class="section-text">{{ $video->description }}</p>
                 <div class="menu__edit-delete">
-                    <a href="{{ route('video.edit', $video->id) }}" class=" card btn-delete--content">Editar</a>
-                    <a href="/excluir-video" class="card btn-delete--content">Excluir</a>
+                    <a href="{{ route('video.edit', $video->id) }}" class="card btn-delete--content">Editar</a>
+                    <form action="{{ route('video.destroy', $video->id) }}" method="post">
+                        @csrf
+                        @method('DELETE')
+                        <button class="card btn-delete--content">Excluir</button>
+                    </form>
                 </div>
             @endforeach 
             <button class="item-btn-add">
@@ -40,11 +44,15 @@
                                     <span class="metric-menu__btn">...</span>
                                     <span class="card metric-menu__btn-close">Fechar</span>
                                     <a href="{{ route('metric.edit', $metric->id) }}" class="btn-delete--content card metric-menu__edit">Editar</a>
-                                    <a href="/excluir-metrica" class="btn-delete--content card metric-menu__delete">Excluir</a>
+                                    <form action="{{ route('metric.destroy', $metric->id) }}" method="post">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="btn-delete--content card metric-menu__delete">Excluir</button>
+                                    </form>
                                 </div>
                             </td>
                         </tr>
-                    <?php endforeach; ?>
+                        <?php endforeach; ?>
                 </tbody>
             </table>
             <button class="item-btn-add">
@@ -57,10 +65,14 @@
         <section class="section">
             <h2 class="section-title">Diagnóstico</h2>
             @foreach ($diagnostics as $diagnostic)
-                <p class="section-text"> {{ $diagnostic->diagnostic_text }}</p>
-                <div class="menu__edit-delete">
-                    <a href="{{ route('diagnostic.edit', $diagnostic->id) }}" class="btn-delete--content card">Editar</a>
-                    <a href="/excluir-diagnostico" class="btn-delete--content card">Excluir</a>
+            <p class="section-text"> {{ $diagnostic->diagnostic_text }}</p>
+            <div class="menu__edit-delete">
+                <a href="{{ route('diagnostic.edit', $diagnostic->id) }}" class="btn-delete--content card">Editar</a>
+                <form action="{{ route('diagnostic.destroy', $diagnostic->id) }}" method="post">
+                    @csrf
+                    @method('DELETE')
+                    <button class="btn-delete--content card metric-menu__delete">Excluir</button>
+                </form>
                 </div>
             @endforeach
             <button class="item-btn-add">

@@ -40,6 +40,7 @@ Route::controller(DiagnosticController::class)->group(function () {
     Route::post('/adicionar-diagnostico', 'store')->name('diagnostic.store');
     Route::get('/editar-diagnostico/{id}/editar', 'edit')->name('diagnostic.edit');
     Route::put('/atualizar-diagnostico/{id}', 'update')->name('diagnostic.update');
+    Route::delete('/excluir-diagnostico/{id}', 'destroy')->name('diagnostic.destroy');
 });
 
 Route::controller(MetricController::class)->group(function () {
@@ -47,6 +48,7 @@ Route::controller(MetricController::class)->group(function () {
     Route::post('/adicionar-metrica', 'store')->name('metric.store');
     Route::get('/editar-metrica/{id}/editar', 'edit')->name('metric.edit');
     Route::put('/atualizar-metrica/{id}', 'update')->name('metric.update');
+    Route::delete('/excluir-metrica/{id}', 'destroy')->name('metric.destroy');
 });
 
 Route::controller(VideoController::class)->group(function () {
@@ -55,6 +57,7 @@ Route::controller(VideoController::class)->group(function () {
     Route::get('/novo-video/{tag}', 'create')->name('video.create');
     Route::get('/editar-video/{id}/editar', 'edit')->name('video.edit');
     Route::put('/atualizar-video/{id}', 'update')->name('video.update');
+    Route::delete('/excluir-video/{id}', 'destroy')->name('video.destroy');
 });
 
 Route::get('/dashboard', [PanelController::class, 'index'])->name('panel.index');

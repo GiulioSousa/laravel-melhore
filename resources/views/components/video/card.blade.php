@@ -10,7 +10,11 @@
                 <p class="section-videos__item-description">{{ $video->description }}</p>
                 <div class="menu__edit-delete list-btn">
                     <a href="{{ route('video.edit', $video->id) }}" class="btn-delete--content card">Editar</a>
-                    <a href="/excluir-video" class="btn-delete--content card">Excluir</a>
+                    <form action="{{ route('video.destroy', $video->id) }}" method="post">
+                        @csrf
+                        @method('DELETE')
+                        <button class="card btn-delete--content">Excluir</button>
+                    </form>
                 </div>
             </li>
         @endforeach

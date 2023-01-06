@@ -108,6 +108,8 @@ class DiagnosticController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $diagnostic = Diagnostic::find($id);
+        $diagnostic->delete();
+        return to_route('panel.index');
     }
 }
