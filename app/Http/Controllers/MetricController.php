@@ -17,13 +17,13 @@ class MetricController extends Controller
      */
     public function create(Request $request)
     {
-        $user = Auth::user()->login;
+        $login = Auth::user()->login;
 
         return view('metric.create')->with([
             'title' => 'Nova Métrica - Painel administrativo | Melhore',
             'home' => 'panel.index',
             'style' => 'css/style.css',
-            'user' => $user,
+            'login' => $login,
             'user_id' => $request->id
         ]);
     }
@@ -64,13 +64,13 @@ class MetricController extends Controller
     public function edit(Request $request, Metric $metric)
     {
         $metric = Metric::find($request->id);
-        $user = Auth::user()->login;
+        $login = Auth::user()->login;
 
         return view('metric.edit')->with([
             'title' => 'Editar métrica - Painel administrativo | Melhore',
             'home' => 'panel.index',
             'style' => 'css/style.css',
-            'user' => $user,
+            'login' => $login,
             'metric' => $metric
         ]);
     }

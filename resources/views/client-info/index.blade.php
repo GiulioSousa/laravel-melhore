@@ -1,5 +1,5 @@
 <x-layout title="Informações do cliente | Melhore" :style="$style">
-    <x-header :user="$user" :home="$home" />
+    <x-header :login="$login" :home="$home" />
         <main class="main-container">
         <h1 class="section-title">Conteúdo - {{ $clientName }}</h1>
         <section class="section">

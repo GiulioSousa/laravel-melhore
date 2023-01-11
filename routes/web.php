@@ -29,7 +29,7 @@ Route::get('/', function () {
 
 Route::controller(LoginController::class)->group(function () {
     Route::get('/login', 'index')->name('login.index');
-    Route::post('/validar-login', 'autenticar');
+    Route::post('/validar-login', 'autenticar')->name('login.autenticar');
     Route::get('/registrar', 'create')->name('login.create');
     Route::post('/registrar', 'store')->name('login.store');
     Route::get('/logout', 'destroy')->name('login.destroy');

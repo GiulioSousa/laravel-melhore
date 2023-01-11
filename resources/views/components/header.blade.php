@@ -13,7 +13,7 @@
         </li>
     </ul>
     <div class="header-profile">
-        <p class="header-profile__name">{{ $user }}</p>
+        <p class="header-profile__name">{{ $login }}</p>
         <img src="{{ asset('img/profile/profile-blank.png') }}" alt="" class="header-profile__avatar">
     </div>
 </header>

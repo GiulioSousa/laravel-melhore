@@ -1,5 +1,5 @@
 <x-layout title="{{ $title }}" :style="$style">
-    <x-header :user="$user" :home="$home" />
+    <x-header :login="$login" :home="$home" />
     <main class="main-container">
         <section class="section card">
             <form class="form" action="{{ route('video.update', ['id' => $video['id']]) }}" method="post">

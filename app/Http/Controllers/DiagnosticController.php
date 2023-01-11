@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Diagnostic;
-use App\Models\Metric;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -27,13 +26,13 @@ class DiagnosticController extends Controller
      */
     public function create(Request $request)
     {
-        $user = Auth::user()->login;
+        $login = Auth::user()->login;
 
         return view('diagnostic.create')->with([
             'title' => 'Novo diagnóstico - Painel administrativo | Melhore',
             'home' => 'panel.index',
             'style' => 'css/style.css',
-            'user' => $user,
+            'login' => $login,
             'user_id' => $request->id
         ]);
     }
@@ -74,13 +73,13 @@ class DiagnosticController extends Controller
     public function edit(Request $request, Diagnostic $diagnostic)
     {
         $diagnostic = Diagnostic::find($request->id);
-        $user = Auth::user()->login;
+        $login = Auth::user()->login;
 
         return view('diagnostic.edit')->with([
             'title' => 'Editar diagnóstico - Painel administrativo | Melhore',
             'home' => 'panel.index',
             'style' => 'css/style.css',
-            'user' => $user,
+            'login' => $login,
             'diagnostic' => $diagnostic
         ]);
     }

@@ -1,10 +1,10 @@
 <x-layout title="{{ $title }}" :style="$style" >
-    <x-header :user="$user" :home="$home" />
+    <x-header :login="$login" :home="$home" />
     <main class="main-container card-container">
         <section class="section card">
             <form class="form" action="" method="post">
+                @csrf
                 <h3 class="section-title"></h3>
-                <?php require 'components/message.php'; ?>
                 <div class="form__area">
                     <div class="form__field">
                         <div class="form__input-box">

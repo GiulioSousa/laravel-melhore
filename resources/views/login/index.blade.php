@@ -1,7 +1,7 @@
 <x-layout title="{{ $title }}" :style="$style">
     <main class="container">
         <section class="card">
-            <form action="/validar-login" method="post" class="form">
+            <form action="{{ route('login.autenticar') }}" method="post" class="form">
                 @csrf
                 <h3 class="form__title">Área do Cliente</h3>
                 {{-- <x-message :typeMessage="$_SESSION['typeMessage']" :message="{{ $_SESSION['message'] }}"/> --}}

@@ -1,5 +1,5 @@
 <x-layout title="Painel administrativo | Melhore" :style="$style">
-    <x-header :user="$user" :home="$home" />
+    <x-header :login="$login" :home="$home" />
     <main class="main-container">
         <ul class="client-list">
             @foreach ($clients as $client)

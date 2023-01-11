@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Diagnostic;
+use App\Models\Metric;
+use App\Models\Video;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -13,15 +16,30 @@ class ClientAreaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $user = Auth::user()->login;
+        $user = Auth::user();
+        $login = $user->login;
+        $videos = Video::where('users_id', $user->id)->get();
+        $metrics = Metric::where('users_id', $user->id)->get();
+        $diagnostics = Diagnostic::where('users_id', $user->id)->get();
+        $videosHighlight = $videos->where('tag', 'highlight');
+        $videosWhatDo = $videos->where('tag', 'whatDo');
+        $videosHowDo = $videos->where('tag', 'howDo');
+        $videosTeam = $videos->where('tag', 'team');
         
-        return view('client-area.index')
-            ->with('home', 'client-area.index')
-            ->with('title', 'Home - Área do cliente | melhore')
-            ->with('style', 'css/style.css')
-            ->with('user', $user);
+        return view('client-area.index')->with([
+            'title' => 'home - Área do cliente | Melhore',
+            'style' => 'css/style.css',
+            'home' => 'client-area.index',
+            'login' => $login,
+            'videosHighlight' => $videosHighlight,
+            'metrics' => $metrics,
+            'diagnostics' => $diagnostics,
+            'videosWhatDo' => $videosWhatDo,
+            'videosHowDo' => $videosHowDo,
+            'videosTeam' => $videosTeam,
+        ]);
     }
 
     /**
