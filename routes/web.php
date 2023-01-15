@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\{
+    AccountController,
     ClientAreaController, 
     ClientInfoController, 
     DiagnosticController, 
@@ -52,7 +53,6 @@ Route::controller(MetricController::class)->group(function () {
 });
 
 Route::controller(VideoController::class)->group(function () {
-    // Route::get('/novo-video/{id}/{tag}', 'create')->name('video.create');
     Route::post('/Adicionar-video', 'store')->name('video.store');
     Route::get('/novo-video/{tag}', 'create')->name('video.create');
     Route::get('/editar-video/{id}/editar', 'edit')->name('video.edit');
@@ -63,7 +63,4 @@ Route::controller(VideoController::class)->group(function () {
 Route::get('/dashboard', [PanelController::class, 'index'])->name('panel.index');
 Route::get('/area-cliente', [ClientAreaController::class, 'index'])->name('client-area.index');
 Route::get('/cliente-info/{id}', [ClientInfoController::class, 'index'])->name('client-info.index');
-// Route::get('/nova-metrica/{id}', [MetricController::class, 'create'])->name('metric.create');
-// Route::post('/adicionar-metrica', [MetricController::class, 'store'])->name('metric.store');
-// Route::get('/novo-diagnostico/{id}', [DiagnosticController::class, 'create'])->name('diagnostic.create');
-// Route::post('/adicionar-diagnostico', [DiagnosticController::class, 'store'])->name('diagnostic.store');
+Route::get('/info-conta', [AccountController::class, 'index'])->name('account-info.index');

@@ -28,7 +28,6 @@ class ClientInfoController extends Controller
         $videosWhatDo = $videos->where('tag', 'whatDo');
         $videosHowDo = $videos->where('tag', 'howDo');
         $videosTeam = $videos->where('tag', 'team');
-        // dd($videos);
 
         return view('client-info.index')
             ->with([
