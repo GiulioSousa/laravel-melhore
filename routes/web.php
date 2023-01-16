@@ -10,7 +10,7 @@ use App\Http\Controllers\{
     PanelController, 
     VideoController
 };
-
+use Faker\Guesser\Name;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -60,7 +60,12 @@ Route::controller(VideoController::class)->group(function () {
     Route::delete('/excluir-video/{id}', 'destroy')->name('video.destroy');
 });
 
+Route::controller(AccountController::class)->group(function () {
+    Route::get('/indo-conta', 'index')->name('account.index');
+    Route::get('/editar-conta', 'edit')->name('account.edit');
+    Route::put('/salvar-conta', 'update')->name('account.update');
+});
+
 Route::get('/dashboard', [PanelController::class, 'index'])->name('panel.index');
 Route::get('/area-cliente', [ClientAreaController::class, 'index'])->name('client-area.index');
 Route::get('/cliente-info/{id}', [ClientInfoController::class, 'index'])->name('client-info.index');
-Route::get('/info-conta', [AccountController::class, 'index'])->name('account-info.index');

@@ -6,7 +6,7 @@
             <a class="menu__link" id="menu-inicio" href="{{ route($home) }}">Home</a>
         </li>
         <li>
-            <a class="menu__link" id="menu-laudo" href="/info-conta">Informações da conta</a>
+            <a class="menu__link" id="menu-laudo" href="{{ route('account.index') }}">Informações da conta</a>
         </li>
         <li>
             <a class="menu__link" href="/logout">Sair</a>

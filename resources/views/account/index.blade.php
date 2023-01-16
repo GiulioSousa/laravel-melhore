@@ -15,7 +15,7 @@
                 </div>
             </div>
             <div class="btn-form__container">
-                <a href="/editar-conta" class="card btn-form">Editar Perfil</a>
+                <a href="{{ route('account.edit') }}" class="card btn-form">Editar Perfil</a>
             </div>
         </section>
     </main>
