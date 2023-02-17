@@ -20,7 +20,6 @@ class LoginController
         }
 
         return to_route('client-area.index');
-
     }
 
     public function index()

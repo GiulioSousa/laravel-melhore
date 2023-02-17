@@ -19,7 +19,7 @@ class ClientInfoController extends Controller
     public function index(Request $request)
     {
         $id = $request->id;
-        $login = Auth::user()->login;
+        $user = Auth::user();
         $client = User::find($id);
         $videos = Video::where('users_id', $id)->get();
         $metrics = Metric::where('users_id', $id)->get();
@@ -33,7 +33,7 @@ class ClientInfoController extends Controller
             ->with([
                 'style' => 'css/style.css',
                 'clientName' => $client->login,
-                'login' => $login,
+                'user' => $user,
                 'home' => 'panel.index',
                 'videosHighlight' => $videosHighlight,
                 'metrics' => $metrics,

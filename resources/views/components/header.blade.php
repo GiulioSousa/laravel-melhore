@@ -14,7 +14,7 @@
     </ul>
     <div class="header-profile">
         <p class="header-profile__name">{{ $login }}</p>
-        <img src="{{ asset('img/profile/profile-blank.png') }}" alt="" class="header-profile__avatar">
+        <img src="{{ asset('storage/' . $avatar) }}" alt="" class="header-profile__avatar">
     </div>
 </header>
 <button class="header__menu card">

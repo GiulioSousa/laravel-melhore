@@ -53,15 +53,17 @@ Route::controller(MetricController::class)->group(function () {
 });
 
 Route::controller(VideoController::class)->group(function () {
-    Route::post('/Adicionar-video', 'store')->name('video.store');
     Route::get('/novo-video/{tag}', 'create')->name('video.create');
+    Route::post('/Adicionar-video', 'store')->name('video.store');
     Route::get('/editar-video/{id}/editar', 'edit')->name('video.edit');
     Route::put('/atualizar-video/{id}', 'update')->name('video.update');
     Route::delete('/excluir-video/{id}', 'destroy')->name('video.destroy');
 });
 
 Route::controller(AccountController::class)->group(function () {
-    Route::get('/indo-conta', 'index')->name('account.index');
+    Route::get('/info-conta', 'index')->name('account.index');
+    Route::get('/novo-cliente', 'create')->name('account.create');
+    Route::post('/salvar-cliente', 'store')->name('account.store');
     Route::get('/editar-conta', 'edit')->name('account.edit');
     Route::put('/salvar-conta', 'update')->name('account.update');
 });

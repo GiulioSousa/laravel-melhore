@@ -1,7 +1,7 @@
 <x-layout title="{{ $title }}" :style="$style">
-    <x-header :login="$login" :home="$home" />
+    <x-header :login="$user->login" :home="$home" :avatar="$user->avatar" />
     <main class="main-container">
-        <h1 class="section-title">Bem vindo, {{ $login }}</h1>
+        <h1 class="section-title">Bem vindo, {{ $user->login }}</h1>
         <section class="section">
             @foreach ($videosHighlight as $video)
                 <h1 class="section-title">{{ $video->title }}</h1>

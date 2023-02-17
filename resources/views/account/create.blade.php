@@ -2,28 +2,27 @@
     <x-header :login="$user->login" :home="$home" :avatar="$user->avatar" />
     <main class="main-container card-container">
         <section class="section card">
-            <form class="form" action="{{ route('account.update') }}" method="post" enctype="multipart/form-data">
-            @method('PUT')
+            <form class="form" action="{{ route('account.store') }}" method="post" enctype="multipart/form-data">
             @csrf
-                <h3 class="form__title">Editar conta</h3>
+                <h3 class="form__title">Nova conta</h3>
                 <div class="form__area">
                     <div class="form__field form__img">
                         <div class="input__img">
                             <input type="file" name="avatar" id="avatar">
                             <label for="avatar" class="account__profile-link">Alterar imagem</label>
-                            <img src="{{ asset('storage/' . $user->avatar) }}" alt="" class="account__profile">
+                            <img src="{{ asset('storage/img/profile-avatar/profile-blank.png') }}" alt="" class="account__profile">
                         </div>
                     </div>
                     <div class="form__field">
                         <div class="form__input-box">
-                            <input type="text" name="login" value="{{ $user->login }}" required>
+                            <input type="text" name="login" required>
                             <label for="login" class="form__label">Nome de usuário</label>
                             <span class="form__line"></span>
                         </div>
                     </div>
                     <div class="form__field">
                         <div class="form__input-box">
-                            <input type="email" name="email" value="{{ $user->email }}" required>
+                            <input type="email" name="email" required>
                             <label for="email" class="form__label">E-mail</label>
                             <span class="form__line"></span>
                         </div>

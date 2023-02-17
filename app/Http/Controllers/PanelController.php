@@ -15,14 +15,14 @@ class PanelController extends Controller
      */
     public function index()
     {
-        $login = Auth::user()->login;
+        $user = Auth::user();
         
         $clients = User::where('admin_mode', 0)->get();
         return view('panel.index')->with([
             'home' => 'panel.index',
             'clients' => $clients,
             'style' => 'css/style.css',
-            'login' => $login
+            'user' => $user
         ]);
     }
 

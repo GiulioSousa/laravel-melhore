@@ -26,15 +26,18 @@ class VideoController extends Controller
      */
     public function create(Request $request)
     {
-        $login = Auth::user()->login;
+        $user = Auth::user();
 
         return view('video.create')->with([
             'title' => 'Novo video - Painel administrativo | Melhore',
             'home' => 'panel.index',
             'style' => 'css/style.css',
-            'login' => $login,
-            'user_id' => $request->id,
-            'tag' => $request->tag
+            'user' => $user,
+            'route' => 'video.store',
+            'arrayData' => [
+                'user_id' => $request->id,
+                'tag' => $request->tag
+            ],
         ]);
     }
 
@@ -75,15 +78,19 @@ class VideoController extends Controller
     public function edit(Request $request, Video $video)
     {
         $video = Video::find($request->id);
-        $login = Auth::user()->login;
+        $user = Auth::user();
         // dd($video);
 
         return view('video.edit')->with([
             'title' => 'Editar video - Painel administrativo | Melhore',
             'home' => 'panel.index',
             'style' => 'css/style.css',
-            'login' => $login,
-            'video' => $video
+            'user' => $user,
+            'route' => 'video.update',
+            'video' => $video,
+            'arrayData' => [
+                'id' => $video['id']
+            ]
         ]);
     }
 

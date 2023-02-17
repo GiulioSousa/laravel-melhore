@@ -19,7 +19,6 @@ class ClientAreaController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $login = $user->login;
         $videos = Video::where('users_id', $user->id)->get();
         $metrics = Metric::where('users_id', $user->id)->get();
         $diagnostics = Diagnostic::where('users_id', $user->id)->get();
@@ -32,7 +31,7 @@ class ClientAreaController extends Controller
             'title' => 'home - Área do cliente | Melhore',
             'style' => 'css/style.css',
             'home' => 'client-area.index',
-            'login' => $login,
+            'user' => $user,
             'videosHighlight' => $videosHighlight,
             'metrics' => $metrics,
             'diagnostics' => $diagnostics,
