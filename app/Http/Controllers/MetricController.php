@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Metric;
 use App\Models\User;
-use DateTimeImmutable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -17,14 +16,17 @@ class MetricController extends Controller
      */
     public function create(Request $request)
     {
-        $login = Auth::user()->login;
+        $user = Auth::user();
 
         return view('metric.create')->with([
             'title' => 'Nova Métrica - Painel administrativo | Melhore',
             'home' => 'panel.index',
             'style' => 'css/style.css',
-            'login' => $login,
-            'user_id' => $request->id
+            'user' => $user,
+            'route' => 'metric.store',
+            'arrayData' => [
+                'user_id' => $request->id
+            ]
         ]);
     }
 
@@ -64,14 +66,18 @@ class MetricController extends Controller
     public function edit(Request $request, Metric $metric)
     {
         $metric = Metric::find($request->id);
-        $login = Auth::user()->login;
+        $user = Auth::user();
 
         return view('metric.edit')->with([
             'title' => 'Editar métrica - Painel administrativo | Melhore',
             'home' => 'panel.index',
             'style' => 'css/style.css',
-            'login' => $login,
-            'metric' => $metric
+            'user' => $user,
+            'metric' => $metric,
+            'route' => 'metric.update',
+            'arrayData' => [
+                'id' => $metric->id
+            ]
         ]);
     }
 
@@ -86,7 +92,6 @@ class MetricController extends Controller
     {
         $metric = Metric::find($id);
         $metric->update($request->except('_token'));
-
         return to_route('panel.index');
     }
 

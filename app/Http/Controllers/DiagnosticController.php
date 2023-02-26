@@ -26,14 +26,17 @@ class DiagnosticController extends Controller
      */
     public function create(Request $request)
     {
-        $login = Auth::user()->login;
+        $user = Auth::user();
 
         return view('diagnostic.create')->with([
             'title' => 'Novo diagnóstico - Painel administrativo | Melhore',
             'home' => 'panel.index',
             'style' => 'css/style.css',
-            'login' => $login,
-            'user_id' => $request->id
+            'user' => $user,
+            'route' => 'diagnostic.store',
+            'arrayData' => [
+                'user_id' => $request->id
+            ]
         ]);
     }
 
@@ -73,14 +76,18 @@ class DiagnosticController extends Controller
     public function edit(Request $request, Diagnostic $diagnostic)
     {
         $diagnostic = Diagnostic::find($request->id);
-        $login = Auth::user()->login;
+        $user = Auth::user();
 
         return view('diagnostic.edit')->with([
             'title' => 'Editar diagnóstico - Painel administrativo | Melhore',
             'home' => 'panel.index',
             'style' => 'css/style.css',
-            'login' => $login,
-            'diagnostic' => $diagnostic
+            'user' => $user,
+            'diagnostic' => $diagnostic,
+            'route' => 'diagnostic.update',
+            'arrayData' => [
+                'id' => $diagnostic->id
+            ]
         ]);
     }
 

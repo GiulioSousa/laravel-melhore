@@ -1,27 +1,17 @@
-<x-layout title="{{ $title }}" :style="$style">
-    <x-header :login="$login" :home="$home" />
-    <main class="main-container card-container">
-        <section class="section card">
-            <form class="form" action="{{ route('diagnostic.update', ['id' => $diagnostic['id']]) }}" method="post">
-            @csrf
-            @method('PUT')
-            <h3 class="section-title">Editar diagnóstico/Novo Diagnóstico</h3>
-            <div class="form__area">
-                <div class="form__field">
-                    <div class="form__input-box">
-                        <input type="textarea" name="diagnostic_text" value="{{ $diagnostic['diagnostic_text'] }}" required>
-                        <label for="diagnostic_text" class="form__label">Diagnóstico</label>
-                        <span class="form__line"></span>
-                    </div>
-                </div>
-            </div>
-            <div class="form__area">
-                <div class="form__field">
-                    <input type="submit" value="Salvar" class="form__btn-submit">
-                </div>
-            </div>
-            </form>
-        </section>
-    </main>
+<x-layout 
+    title="{{ $title }}" 
+    :style="$style"
+>
+    <x-header 
+        :login="$user->login" 
+        :home="$home" 
+        :avatar="$user->avatar" 
+    />
+    <x-diagnostic.form 
+        :title="'Nova Métrica'" 
+        :route="$route" 
+        :array-data="$arrayData"
+        :diagnostic="$diagnostic"
+    />
     <x-footer />
 </x-layout>
