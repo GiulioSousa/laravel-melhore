@@ -21,7 +21,7 @@ class PanelController extends Controller
         return view('panel.index')->with([
             'home' => 'panel.index',
             'clients' => $clients,
-            'style' => 'css/style.css',
+            'style' => 'css/panel/style.css',
             'user' => $user
         ]);
     }

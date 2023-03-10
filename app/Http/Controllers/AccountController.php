@@ -5,24 +5,33 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
 class AccountController extends Controller
 {
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
         $user = Auth::user();
 
         return view('account.index')->with([
             'title' => 'Informações da conta | Melhore',
-            'style' => 'css/style.css',
+            'style' => 'css/panel/style.css',
             'user' => $user,
             'home' => 'panel.index'
         ]);
     }
 
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function create()
     {
         $user = Auth::user();
@@ -35,6 +44,12 @@ class AccountController extends Controller
         ]);
     }
 
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function store(Request $request)
     {
         $data = $request->except('_token', 'confirm_password');
@@ -46,9 +61,16 @@ class AccountController extends Controller
         $data['avatar'] = $avatarPath;
         User::create($data);
 
-        return to_route('panel.index');
+        $client = $data['login'];
+
+        return to_route('panel.index')->with('message.success', "Cliente {$client} criado com sucesso.");
     }
 
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function edit()
     {
         return view('account.edit')->with([
@@ -59,6 +81,12 @@ class AccountController extends Controller
         ]);
     }
 
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function update(Request $request)
     {
         $user = Auth::user();
@@ -72,10 +100,12 @@ class AccountController extends Controller
         $user->update($data);
 
         if ($user->admin_mode) {
-            return to_route('panel.index');
+            return to_route('panel.index')
+                ->with('message.success', "Usuário {$data['login']} alterado com sucesso.");
         }
 
-        return to_route('client-area.index');
+        return to_route('client-area.index')
+            ->with('message.success', "Usuário {$data['login']} alterado com sucesso.");
     }
 
     public function newAvatar(Request $request): string

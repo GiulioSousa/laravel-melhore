@@ -1,14 +1,9 @@
-@isset($messageSuccess)
-    <div class="message message-success">
-        {{ $messageSuccess }}
+@if (session('message.success'))
+    <div class="card message message--success">
+        {{ session('message.success') }}
     </div>
-@endisset
-@if ($errors->any())
-    <div class="message message-error">
-        <ul>
-            @foreach (->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
+@elseif (session('message.error'))
+    <div class="card message message--error">
+        {{ session('message.error') }}
     </div>
 @endif

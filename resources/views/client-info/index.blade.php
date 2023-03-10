@@ -1,6 +1,7 @@
 <x-layout title="Informações do cliente | Melhore" :style="$style">
     <x-header :login="$user->login" :home="$home" :avatar="$user->avatar" />
         <main class="main-container">
+        <x-message />
         <h1 class="section-title">Conteúdo - {{ $clientName }}</h1>
         <section class="section">
             @foreach ($videosHighlight as $video)
@@ -11,10 +12,10 @@
                 <p class="section-text">{{ $video->description }}</p>
                 <div class="menu__edit-delete">
                     <a href="{{ route('video.edit', $video->id) }}" class="card btn-delete--content">Editar</a>
-                    <form action="{{ route('video.destroy', $video->id) }}" method="post">
+                    <form action="{{ route('video.destroy', $video->id) }}" method="post" class="card btn-delete--content">
                         @csrf
                         @method('DELETE')
-                        <button class="card btn-delete--content">Excluir</button>
+                        <button class="">Excluir</button>
                     </form>
                 </div>
             @endforeach 
@@ -52,7 +53,7 @@
                                 </div>
                             </td>
                         </tr>
-                        <?php endforeach; ?>
+                    @endforeach
                 </tbody>
             </table>
             <button class="item-btn-add">

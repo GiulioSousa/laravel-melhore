@@ -12,16 +12,24 @@ class LoginController
     public function autenticar(Request $request)
     {
         if (!Auth::attempt($request->except('_token'))) {
-            return redirect()->back()->withErrors('Usuário ou senha inválidos');
+            return redirect()->back()->with('message.error', 'Usuário ou senha inválidos');
         }
 
         if (Auth::user()->admin_mode) {
-            return to_route('panel.index');
+            $login = Auth::user()->login;
+            // $request->session()->flash('message.success', "Bem vindo, {$login}");
+            // dd($request->session());
+            return to_route('panel.index')->with('message.success', "Bem vindo, {$login}");
         }
 
         return to_route('client-area.index');
     }
 
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
         return view('login.index')
@@ -29,12 +37,23 @@ class LoginController
         ->with('style', 'css/login/login.css');
     }
     
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function create()
     {
         return view('login.create')
         ->with('style', 'css/login/login.css');
     }
 
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function store(Request $request)
     {
         $data = $request->except(['_token']);
@@ -46,6 +65,11 @@ class LoginController
     
     }
 
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function destroy()
     {
         Auth::logout();

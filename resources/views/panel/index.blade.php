@@ -1,6 +1,7 @@
 <x-layout title="Painel administrativo | Melhore" :style="$style">
     <x-header :login="$user->login" :home="$home" :avatar="$user->avatar" />
     <main class="main-container">
+        <x-message />
         <ul class="client-list">
             @foreach ($clients as $client)
                 <li class="client-card card">

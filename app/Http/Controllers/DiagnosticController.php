@@ -10,16 +10,6 @@ use Illuminate\Support\Facades\Auth;
 class DiagnosticController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
@@ -31,7 +21,7 @@ class DiagnosticController extends Controller
         return view('diagnostic.create')->with([
             'title' => 'Novo diagnóstico - Painel administrativo | Melhore',
             'home' => 'panel.index',
-            'style' => 'css/style.css',
+            'style' => 'css/panel/style.css',
             'user' => $user,
             'route' => 'diagnostic.store',
             'arrayData' => [
@@ -53,24 +43,13 @@ class DiagnosticController extends Controller
         $client = User::find($request->user_id);
         $client->diagnostics()->create($data);
 
-        return to_route('client-info.index', $request->user_id);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+        return to_route('client-info.index', $request->user_id)
+            ->with('message.success', 'Diagnóstico adicionado com sucesso.');
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function edit(Request $request, Diagnostic $diagnostic)
@@ -81,7 +60,7 @@ class DiagnosticController extends Controller
         return view('diagnostic.edit')->with([
             'title' => 'Editar diagnóstico - Painel administrativo | Melhore',
             'home' => 'panel.index',
-            'style' => 'css/style.css',
+            'style' => 'css/panel/style.css',
             'user' => $user,
             'diagnostic' => $diagnostic,
             'route' => 'diagnostic.update',
@@ -103,7 +82,8 @@ class DiagnosticController extends Controller
         $diagnostic = Diagnostic::find($id);
         $diagnostic->update($request->except('_token'));
 
-        return to_route('panel.index');
+        return to_route('client-info.index', $diagnostic->users_id)
+            ->with('message.success', 'Diagnóstico atualizado com sucesso.');
     }
 
     /**
@@ -116,6 +96,8 @@ class DiagnosticController extends Controller
     {
         $diagnostic = Diagnostic::find($id);
         $diagnostic->delete();
-        return to_route('panel.index');
+
+        return to_route('client-info.index', $diagnostic->users_id)
+            ->with('message.success', 'Diagnóstico excluído com sucesso.');
     }
 }

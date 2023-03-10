@@ -4,7 +4,7 @@
             <form action="{{ route('login.autenticar') }}" method="post" class="form">
                 @csrf
                 <h3 class="form__title">Área do Cliente</h3>
-                {{-- <x-message :typeMessage="$_SESSION['typeMessage']" :message="{{ $_SESSION['message'] }}"/> --}}
+                <x-message />
                 <div class="form__area">
                     <div class="form__field">
                         <div class="form__input-box">

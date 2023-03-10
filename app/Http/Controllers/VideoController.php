@@ -10,16 +10,6 @@ use Illuminate\Support\Facades\Auth;
 class VideoController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
@@ -59,20 +49,8 @@ class VideoController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function edit(Request $request, Video $video)
@@ -104,8 +82,9 @@ class VideoController extends Controller
     public function update(Video $video, Request $request, $id)
     {
         $video = Video::find($id);
-        $video->update($request->except('_token'));
-
+        
+        $video->update($request->except('_token', '_method'));
+        
         return to_route('panel.index');
     }
 
