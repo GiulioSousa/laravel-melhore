@@ -159,4 +159,14 @@ class AccountController extends Controller
 
         return $currentAvatarPath;
     }
+
+    public function extensionValidate(Request $request)
+    {
+        $file = $request->file('avatar');
+        $extension = $file->getClientOriginalExtension();
+
+        if ($extension != 'jpg' || $extension != 'jpeg' || $extension != 'png') {
+            
+        }
+    }
 }

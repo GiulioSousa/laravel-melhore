@@ -43,7 +43,8 @@ class MetricController extends Controller
         $client = User::find($request->user_id);
         $client->metrics()->create($data);
 
-        return to_route('client-info.index', $request->user_id);
+        return to_route('client-info.index', $request->user_id)
+            ->with('message.success', 'Métrica criada com sucesso.');
     }
 
     /**
@@ -80,7 +81,9 @@ class MetricController extends Controller
     {
         $metric = Metric::find($id);
         $metric->update($request->except('_token'));
-        return to_route('panel.index');
+
+        return to_route('client-info.index', $metric->users_id)
+            ->with('message.success', 'Métrica atualizada com sucesso.');
     }
 
     /**
@@ -93,6 +96,8 @@ class MetricController extends Controller
     {
         $metric = Metric::find($id);
         $metric->delete();
-        return to_route('panel.index');
+
+        return to_route('client-info.index', $metric->users_id)
+            ->with('message.success', 'Métrica excluída com sucesso.');
     }
 }

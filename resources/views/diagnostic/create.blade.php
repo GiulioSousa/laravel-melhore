@@ -8,7 +8,7 @@
         :avatar="$user->avatar" 
     />
     <x-diagnostic.form 
-        :title="'Nova Métrica'" 
+        :title="'Novo Diagnóstico'" 
         :route="$route" 
         :array-data="$arrayData"
     />

@@ -12,6 +12,11 @@
                         <input type="text" name="title" value="{{ $route == 'video.store' ? "" : $video['title'] }}" required>
                         <label for="title" class="form__label">Título do Vídeo</label>
                         <span class="form__line"></span>
+                        @error('title')
+                            <div class="alert alert-danger">
+                                {{ $message }}
+                            </div>
+                        @enderror
                     </div>
                 </div>
                 <div class="form__field">
