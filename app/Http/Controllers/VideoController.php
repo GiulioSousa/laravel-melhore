@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Video;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class VideoController extends Controller
 {
@@ -39,7 +40,14 @@ class VideoController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validateData($request);
+        $validator = $this->validateData($request);
+
+        if ($validator->fails()) {
+            return redirect()
+                ->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
 
         $data = $request->except('_token');
         $data['url'] = $this->convertUrl($request);
@@ -48,8 +56,9 @@ class VideoController extends Controller
         $client = User::find($request->user_id);
         $client->videos()->create($data);
 
-        return to_route('client-info.index', $request->user_id)
-        ->with('message.success', 'Video adicionado com sucesso.');
+        return redirect()
+            ->route('client-info.index', $request->user_id)
+            ->with('message.success', 'Video adicionado com sucesso.');
     }
 
     /**
@@ -61,7 +70,6 @@ class VideoController extends Controller
     {
         $video = Video::find($request->id);
         $user = Auth::user();
-        // dd($video);
 
         return view('video.edit')->with([
             'title' => 'Editar video - Painel administrativo | Melhore',
@@ -110,10 +118,10 @@ class VideoController extends Controller
 
     public function validateData(Request $request)
     {
-        $request->validate([
+        return Validator::make($request->except('_token'), [
             'title' => 'required|regex:/^[a-zA-Z0-9\s]+$/',
             'description' => 'required|regex:/^[a-zA-Z0-9\s\d\/\-\_\.\:\=\?]+$/',
-            'url' => 'required|regex:/^[a-zA-Z0-9\s\d\/\-\_\.\:\=\?]+$/'
+            'url' => ['required', 'regex:/^(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/watch\?v=|youtu\.be\/)(?:[\w-]{11})/']
         ],
         [
             'title.required' => 'Este campo é obrigatório',
@@ -128,9 +136,15 @@ class VideoController extends Controller
     public function convertUrl(Request $request)
     {
         $url = $request->url;
-        $pattern = '/(?:\w*:\/\/)?(?:www\.)?youtu(?:\.be|be\.com)\/(?:.*v(?:\/|=)|(?:.*\/)?)([\w\-]+)(?:.*)/i';
+        $pattern = '/^(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/watch\?v=|youtu\.be\/)([\w-]{11})/i';
 
         preg_match($pattern, $url, $match);
+
+        if (is_array($match) && isset($match[1])) {
+            return $match[1];
+        } else {
+            return null; // ou alguma mensagem de erro apropriada
+        }
 
         return $match[1];
     }    
