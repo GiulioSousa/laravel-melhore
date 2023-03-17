@@ -22,7 +22,7 @@ class VideoController extends Controller
         return view('video.create')->with([
             'title' => 'Novo video - Painel administrativo | Melhore',
             'home' => 'panel.index',
-            'style' => 'css/style.css',
+            'style' => 'css/panel/style.css',
             'user' => $user,
             'route' => 'video.store',
             'arrayData' => [
@@ -40,7 +40,7 @@ class VideoController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = $this->validateData($request);
+        $validator = $this->verifyData($request);
 
         if ($validator->fails()) {
             return redirect()
@@ -74,7 +74,7 @@ class VideoController extends Controller
         return view('video.edit')->with([
             'title' => 'Editar video - Painel administrativo | Melhore',
             'home' => 'panel.index',
-            'style' => 'css/style.css',
+            'style' => 'css/panel/style.css',
             'user' => $user,
             'route' => 'video.update',
             'video' => $video,
@@ -93,6 +93,15 @@ class VideoController extends Controller
      */
     public function update(Video $video, Request $request, $id)
     {
+        $validator = $this->verifyData($request);
+
+        if ($validator->fails()) {
+            return redirect()
+                ->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
         $video = Video::find($id);
         
         $video->update($request->except('_token', '_method'));
@@ -116,7 +125,7 @@ class VideoController extends Controller
             ->with('message.success', 'Video excluído com sucesso');
     }
 
-    public function validateData(Request $request)
+    public function verifyData(Request $request)
     {
         return Validator::make($request->except('_token'), [
             'title' => 'required|regex:/^[a-zA-Z0-9\s]+$/',
@@ -129,7 +138,7 @@ class VideoController extends Controller
             'description.required' => 'Este campo é obrigatório',
             'description.regex' => 'Este campo não pode conter caracteres especiais',
             'url.required' => 'Este campo é obrigatório',
-            'url.regex' => 'A URL deve ser válida e conter um ID de vídeo do YouTube.',
+            'url.regex' => 'A URL deve ser de um vídeo do YouTube.',
         ]);
     }
 
@@ -147,5 +156,15 @@ class VideoController extends Controller
         }
 
         return $match[1];
-    }    
+    }
+
+    public function validateData($validator)
+    {
+        if ($validator->fails()) {
+            return redirect()
+                ->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+    }
 }
