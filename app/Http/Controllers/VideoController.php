@@ -130,7 +130,7 @@ class VideoController extends Controller
         return Validator::make($request->except('_token'), [
             'title' => 'required|regex:/^[a-zA-Z0-9\s]+$/',
             'description' => 'required|regex:/^[a-zA-Z0-9\s\d\/\-\_\.\:\=\?]+$/',
-            'url' => ['required', 'regex:/^(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/watch\?v=|youtu\.be\/)(?:[\w-]{11})/']
+            'url' => ['required', 'url', 'regex:/^(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/watch\?v=|youtu\.be\/)(?:[\w-]{11})/']
         ],
         [
             'title.required' => 'Este campo é obrigatório',
@@ -152,7 +152,7 @@ class VideoController extends Controller
         if (is_array($match) && isset($match[1])) {
             return $match[1];
         } else {
-            return null; // ou alguma mensagem de erro apropriada
+            return null;
         }
 
         return $match[1];

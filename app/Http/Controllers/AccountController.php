@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class AccountController extends Controller
 {
@@ -52,6 +53,15 @@ class AccountController extends Controller
      */
     public function store(Request $request)
     {
+        $validator = $this->verifyData($request);
+
+        if ($validator->fails()) {
+            return redirect()
+                ->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
         $data = $request->except('_token', 'confirm_password');
         $data['password'] = Hash::make($data['password']);
         $data['admin_mode'] = 0;
@@ -112,7 +122,7 @@ class AccountController extends Controller
     {
         if ($request->hasFile('avatar')) {
             $file = $request->file('avatar');
-            $extension = $file->getClientOriginalExtension();
+            $extension = $this->extensionValidate($request);
             $avatarPath = $file->storeAs(
                 'img/profile-avatar',
                 $request['login'] . '.' . $extension
@@ -163,10 +173,46 @@ class AccountController extends Controller
     public function extensionValidate(Request $request)
     {
         $file = $request->file('avatar');
-        $extension = $file->getClientOriginalExtension();
 
-        if ($extension != 'jpg' || $extension != 'jpeg' || $extension != 'png') {
-            
+        $validator = Validator::make($file, [
+            'avatar' => 'mimetypes:
+                image/bmp, 
+                image/jpeg, 
+                image/png,'
+        ],
+        [
+            'avatar.mimetypes' => 'Formato de imagem inválido'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()
+                ->back()
+                ->withErrors($validator)
+                ->withInput();
         }
+
+        return $file->getClientOriginalExtension();
+    }
+
+    public function verifyData(Request $request)
+    {
+        return Validator::make($request->except('_token'), [
+            'login' => 'required|regex:/^[a-zA-Z0-9\s\-\_]+$/',
+            'email' => [
+                'required', 
+                'regex:/^[\w\-\.]+\@[\w-]+\.[\w-]+\.[\w-]{2}|[\w\-]+\@[\w]+\.[\w-]+$/i',
+                'max:16'
+            ],
+            'password' => 'required|regex:/^[\w\+\=\-\*\.\!\@\#\$\%\&\*]+/'
+        ],
+        [
+            'login.required' => 'Este campo é obrigatório',
+            'login.regex' => 'Este campo não deve ter caracteres especiais',
+            'email.required' => 'Este campo é obrigatório',
+            'email.regex' => 'Formato de e-mail inválido',
+            'email.max' => 'Senha deve conter até 16 caracteres',
+            'password.required' => 'Este campo é obrigatório',
+            'password.regex' => 'Recomendamos senhas com letras e números'
+        ]);
     }
 }

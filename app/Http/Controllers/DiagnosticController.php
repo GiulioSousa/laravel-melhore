@@ -6,6 +6,7 @@ use App\Models\Diagnostic;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class DiagnosticController extends Controller
 {
@@ -38,6 +39,15 @@ class DiagnosticController extends Controller
      */
     public function store(Request $request)
     {
+        $validator = $this->verifyData($request);
+
+        if ($validator->fails()) {
+            return redirect()
+                ->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
         $data = $request->except('_token');
                
         $client = User::find($request->user_id);
@@ -79,6 +89,15 @@ class DiagnosticController extends Controller
      */
     public function update(Diagnostic $diagnostic, Request $request, $id)
     {
+        $validator = $this->verifyData($request);
+
+        if ($validator->fails()) {
+            return redirect()
+                ->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+        
         $diagnostic = Diagnostic::find($id);
         $diagnostic->update($request->except('_token'));
 
@@ -99,5 +118,16 @@ class DiagnosticController extends Controller
 
         return to_route('client-info.index', $diagnostic->users_id)
             ->with('message.success', 'Diagnóstico excluído com sucesso.');
+    }
+
+    public function verifyData(Request $request)
+    {
+        return Validator::make($request->except('_token'), [
+            'diagnostic_text'=> [
+                'required', 
+                'string',
+                'regex:/^[a-zA-Z0-9À-úçÇ\s.,:;?!]*$/'
+            ]
+        ]);
     }
 }
