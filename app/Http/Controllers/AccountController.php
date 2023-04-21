@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
@@ -173,24 +174,38 @@ class AccountController extends Controller
     public function extensionValidate(Request $request)
     {
         $file = $request->file('avatar');
-
-        $validator = Validator::make($file, [
+        // dd(Arr::wrap($file));
+        $rules = [
             'avatar' => 'mimetypes:
                 image/bmp, 
                 image/jpeg, 
-                image/png,'
-        ],
-        [
-            'avatar.mimetypes' => 'Formato de imagem inválido'
-        ]);
-
-        if ($validator->fails()) {
-            return redirect()
+                image/png'
+        ];
+        $messages = ['avatar.mimetypes' => 'Formato de imagem inválido'];
+        // $datafile =  ['avatar' => $file];
+        // dd($file->getClientOriginalExtension());
+        
+        /* $validator = Validator::make(['avatar' => $file], [
+            'avatar' => 'mimetypes:
+                image/bmp, 
+                image/jpeg, 
+                image/png'
+            ],
+            [
+                'avatar.mimetypes' => 'Formato de imagem inválido'
+            ]); */
+            
+            /* if ($validator->fails()) {
+                return redirect()
                 ->back()
                 ->withErrors($validator)
                 ->withInput();
-        }
+            } */
 
+            Validator::validate(Arr::wrap($file), $rules, $messages);
+            
+        // $file = $request->file('avatar');
+        // dd($file->getClientOriginalExtension());
         return $file->getClientOriginalExtension();
     }
 

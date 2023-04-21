@@ -10,7 +10,7 @@
                         <div class="input__img">
                             <input type="file" name="avatar" id="avatar">
                             <label for="avatar" class="account__profile-link">Alterar imagem</label>
-                            <img src="{{ asset('storage/img/profile-avatar/profile-blank.png') }}" alt=""
+                            <img src="{{ asset('storage/img/profile-avatar/profile-blank.png') }}" alt="Foto de perfil do usuário"
                                 class="account__profile">
                         </div>
                         @error('avatar')

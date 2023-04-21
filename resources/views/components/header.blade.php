@@ -1,6 +1,6 @@
 <header class="header">
-    <img src="{{ asset('img/logo-transp.png') }}" alt="" class="header__logo" id="logo-transp">
-    <img src="{{ asset('img/logo-color.png') }}" alt="" class="header__logo header__logo--invisible" id="logo-color">
+    <img src="{{ asset('img/logo-transp.png') }}" alt="Logo Equipe Melhore" class="header__logo" id="logo-transp">
+    <img src="{{ asset('img/logo-color.png') }}" alt="Logo Equipe Melhore" class="header__logo header__logo--invisible" id="logo-color">
     <ul class="menu__list">
         <li>
             <a class="menu__link" id="menu-inicio" href="{{ route($home) }}">Home</a>
@@ -14,7 +14,7 @@
     </ul>
     <div class="header-profile">
         <p class="header-profile__name">{{ $login }}</p>
-        <img src="{{ asset('storage/' . $avatar) }}" alt="" class="header-profile__avatar">
+        <img src="{{ asset('storage/' . $avatar) }}" alt="Foto de perfil do usuário" class="header-profile__avatar">
     </div>
 </header>
 <button class="header__menu card">

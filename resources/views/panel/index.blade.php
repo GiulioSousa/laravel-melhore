@@ -10,7 +10,7 @@
                         {{ asset('storage/' . $client->avatar) }}
                         @else
                         {{ asset('storage/img/profile-avatar/profile-blank.png') }}
-                        @endif" alt="" class="client-card__img">
+                        @endif" alt="Foto de perfil do usuário" class="client-card__img">
                         <h3 class="client-card__title">{{ $client->login }}</h3>
                         <span class="client-card__description">Clique para mais informações</span>
                     </a>
@@ -18,7 +18,7 @@
             @endforeach
             <li class="client-card client-card--new card">
                 <a href="{{ route('account.create') }}" class="client-card__link">
-                    <img src="{{ asset('storage/img/profile-avatar/profile-blank.png') }}" alt="" class="client-card__img">
+                    <img src="{{ asset('storage/img/profile-avatar/profile-blank.png') }}" alt="Foto de perfil do usuário" class="client-card__img">
                     <h3 class="client-card__title">Novo Cliente</h3>
                 </a>
             </li>
