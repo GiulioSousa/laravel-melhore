@@ -65,6 +65,7 @@ Route::controller(AccountController::class)->group(function () {
     Route::post('/salvar-cliente', 'store')->name('account.store');
     Route::get('/editar-conta', 'edit')->name('account.edit');
     Route::put('/salvar-conta', 'update')->name('account.update');
+    Route::delete('/excluir-conta/{id}', 'destroy')->name('account.destroy');
 });
 
 Route::get('/dashboard', [PanelController::class, 'index'])->name('panel.index');

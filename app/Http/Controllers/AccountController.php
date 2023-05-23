@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Validator as ValidationValidator;
 
 class AccountController extends Controller
 {
@@ -19,6 +20,7 @@ class AccountController extends Controller
      */
     public function index()
     {
+        //User Authentication
         $user = Auth::user();
 
         return view('account.index')->with([
@@ -36,6 +38,7 @@ class AccountController extends Controller
      */
     public function create()
     {
+        //User Authentication
         $user = Auth::user();
 
         return view('account.create')->with([
@@ -54,22 +57,16 @@ class AccountController extends Controller
      */
     public function store(Request $request)
     {
+        //Data Validation
         $validator = $this->verifyData($request);
-
-        if ($validator->fails()) {
-            return redirect()
-                ->back()
-                ->withErrors($validator)
-                ->withInput();
-        }
-
+        $this->validateData($validator);
+        $avatarPath = $this->newAvatar($request);
+        
         $data = $request->except('_token', 'confirm_password');
         $data['password'] = Hash::make($data['password']);
         $data['admin_mode'] = 0;
-
-        $avatarPath = $this->newAvatar($request);
-
         $data['avatar'] = $avatarPath;
+
         User::create($data);
 
         $client = $data['login'];
@@ -124,6 +121,7 @@ class AccountController extends Controller
         if ($request->hasFile('avatar')) {
             $file = $request->file('avatar');
             $extension = $this->extensionValidate($request);
+            dd($extension);
             $avatarPath = $file->storeAs(
                 'img/profile-avatar',
                 $request['login'] . '.' . $extension
@@ -174,7 +172,6 @@ class AccountController extends Controller
     public function extensionValidate(Request $request)
     {
         $file = $request->file('avatar');
-        // dd(Arr::wrap($file));
         $rules = [
             'avatar' => 'mimetypes:
                 image/bmp, 
@@ -182,30 +179,9 @@ class AccountController extends Controller
                 image/png'
         ];
         $messages = ['avatar.mimetypes' => 'Formato de imagem inválido'];
-        // $datafile =  ['avatar' => $file];
-        // dd($file->getClientOriginalExtension());
-        
-        /* $validator = Validator::make(['avatar' => $file], [
-            'avatar' => 'mimetypes:
-                image/bmp, 
-                image/jpeg, 
-                image/png'
-            ],
-            [
-                'avatar.mimetypes' => 'Formato de imagem inválido'
-            ]); */
-            
-            /* if ($validator->fails()) {
-                return redirect()
-                ->back()
-                ->withErrors($validator)
-                ->withInput();
-            } */
 
-            Validator::validate(Arr::wrap($file), $rules, $messages);
+        Validator::validate(Arr::wrap($file), $rules, $messages);
             
-        // $file = $request->file('avatar');
-        // dd($file->getClientOriginalExtension());
         return $file->getClientOriginalExtension();
     }
 
@@ -229,5 +205,15 @@ class AccountController extends Controller
             'password.required' => 'Este campo é obrigatório',
             'password.regex' => 'Recomendamos senhas com letras e números'
         ]);
+    }
+
+    public function validateData(ValidationValidator $validator)
+    {
+        if ($validator->fails()) {
+            return redirect()
+                ->back()
+                ->withErrors($validator)
+                ->withInput(); 
+        }
     }
 }

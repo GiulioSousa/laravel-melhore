@@ -138,6 +138,7 @@ class VideoController extends Controller
             'description.required' => 'Este campo é obrigatório',
             'description.regex' => 'Este campo não pode conter caracteres especiais',
             'url.required' => 'Este campo é obrigatório',
+            'url.url' => 'Este campo deve conter uma URL válida.',
             'url.regex' => 'A URL deve ser de um vídeo do YouTube.',
         ]);
     }

@@ -29,3 +29,9 @@
     bottom: 10%;
     right: 10%;
 }
+
+@media screen and (max-width:768px) {
+    .bg-img {
+        width: 100%;
+    }
+}
