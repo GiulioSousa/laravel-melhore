@@ -94,6 +94,12 @@
 
         <x-video.card :title="'Processos da equipe'" :videos="$videosTeam" :id="$id" :tag="'team'" />
 
+        <form method="post" action="{{ route('account.destroy', $clientId) }}" class="form-delete">
+            @csrf
+            @method('DELETE')
+            <button class="card btn-delete">Excluir perfil</button>
+        </form>
+
     <x-footer />
     </main> 
 </x-layout>

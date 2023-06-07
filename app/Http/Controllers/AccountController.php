@@ -4,11 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Validator as ValidationValidator;
 
 class AccountController extends Controller
 {
@@ -56,12 +56,7 @@ class AccountController extends Controller
     {
         $validator = $this->verifyData($request);
 
-        if ($validator->fails()) {
-            return redirect()
-                ->back()
-                ->withErrors($validator)
-                ->withInput();
-        }
+        $this->validateData($validator);
 
         $data = $request->except('_token', 'confirm_password');
         $data['password'] = Hash::make($data['password']);
@@ -119,11 +114,27 @@ class AccountController extends Controller
             ->with('message.success', "Usuário {$data['login']} alterado com sucesso.");
     }
 
+    /** 
+     * Remove the specified resource from storage
+     * 
+     * @param int $id
+     * @return \Illuminate\Http\Response  */
+    public function destroy($id)
+    {
+        $user = User::find($id);
+        $user->delete();
+
+        return to_route('panel.index')->with('message.success', 'Cliente excluído com sucesso');
+        //implementar exclusão do arquivo de avatar do armazenamento
+        //Verificar a situação dos videos relacionados ao user_id
+        //UTILIZAR O SISTEMA DE REPOSITÓRIOS
+    }
+
     public function newAvatar(Request $request): string
     {
         if ($request->hasFile('avatar')) {
             $file = $request->file('avatar');
-            $extension = $this->extensionValidate($request);
+            $extension = $file->getClientOriginalExtension();
             $avatarPath = $file->storeAs(
                 'img/profile-avatar',
                 $request['login'] . '.' . $extension
@@ -171,63 +182,53 @@ class AccountController extends Controller
         return $currentAvatarPath;
     }
 
-    public function extensionValidate(Request $request)
+    public function verifyData(Request $request)
     {
-        $file = $request->file('avatar');
-        // dd(Arr::wrap($file));
-        $rules = [
-            'avatar' => 'mimetypes:
-                image/bmp, 
-                image/jpeg, 
-                image/png'
-        ];
-        $messages = ['avatar.mimetypes' => 'Formato de imagem inválido'];
-        // $datafile =  ['avatar' => $file];
-        // dd($file->getClientOriginalExtension());
-        
-        /* $validator = Validator::make(['avatar' => $file], [
-            'avatar' => 'mimetypes:
-                image/bmp, 
-                image/jpeg, 
-                image/png'
+        $validator = Validator::make(
+            $request->except('_token'),
+            [
+                'login' => 'required|regex:/^[a-zA-Z0-9\s\-\_]+$/',
+                'email' => [
+                    'required',
+                    'regex:/^[\w\-\.]+\@[\w-]+\.[\w-]+\.[\w-]{2}|[\w\-]+\@[\w]+\.[\w-]+$/i',
+                    'max:16'
+                ],
+                'password' => 'required|regex:/^[\w\+\=\-\*\.\!\@\#\$\%\&\*]+/'
             ],
             [
-                'avatar.mimetypes' => 'Formato de imagem inválido'
-            ]); */
-            
-            /* if ($validator->fails()) {
-                return redirect()
+                'login.required' => 'Este campo é obrigatório',
+                'login.regex' => 'Este campo não deve ter caracteres especiais',
+                'email.required' => 'Este campo é obrigatório',
+                'email.regex' => 'Formato de e-mail inválido',
+                'email.max' => 'Senha deve conter até 16 caracteres',
+                'password.required' => 'Este campo é obrigatório',
+                'password.regex' => 'Recomendamos senhas com letras e números'
+            ]
+        );
+
+        $validator->after(function ($validator) use ($request) {
+            $extensions = ['jpg', 'jpeg', 'bmp', 'png'];
+            $fileExtension = $request->file('avatar')->getClientOriginalExtension();
+
+            if (!in_array($fileExtension, $extensions)) {
+                $validator->errors()->add(
+                    'avatar',
+                    'Formato de imagem inválido. Somente arquivos .jpg ou .png'
+                );
+            }
+        });
+
+        return $validator;
+    }
+
+    public function validateData(ValidationValidator $validator)
+    {
+        if ($validator->fails()) {
+            dd($validator->fails());
+            return redirect()
                 ->back()
                 ->withErrors($validator)
                 ->withInput();
-            } */
-
-            Validator::validate(Arr::wrap($file), $rules, $messages);
-            
-        // $file = $request->file('avatar');
-        // dd($file->getClientOriginalExtension());
-        return $file->getClientOriginalExtension();
-    }
-
-    public function verifyData(Request $request)
-    {
-        return Validator::make($request->except('_token'), [
-            'login' => 'required|regex:/^[a-zA-Z0-9\s\-\_]+$/',
-            'email' => [
-                'required', 
-                'regex:/^[\w\-\.]+\@[\w-]+\.[\w-]+\.[\w-]{2}|[\w\-]+\@[\w]+\.[\w-]+$/i',
-                'max:16'
-            ],
-            'password' => 'required|regex:/^[\w\+\=\-\*\.\!\@\#\$\%\&\*]+/'
-        ],
-        [
-            'login.required' => 'Este campo é obrigatório',
-            'login.regex' => 'Este campo não deve ter caracteres especiais',
-            'email.required' => 'Este campo é obrigatório',
-            'email.regex' => 'Formato de e-mail inválido',
-            'email.max' => 'Senha deve conter até 16 caracteres',
-            'password.required' => 'Este campo é obrigatório',
-            'password.regex' => 'Recomendamos senhas com letras e números'
-        ]);
+        }
     }
 }
