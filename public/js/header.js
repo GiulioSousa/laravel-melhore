@@ -7,7 +7,7 @@ let lateralMenu = document.querySelector('.lateral-menu');
 
 window.addEventListener('scroll', () => {
     let switchEffect = false;
-    if(window.scrollY > 10 && !switchEffect) {
+    if(window.scrollY > 60 && !switchEffect) {
         header.classList.add('header--transition');
         headerLogoColor.classList.remove('header__logo--invisible');
         headerLogoTransp.classList.add('header__logo--invisible');
