@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
@@ -13,6 +14,11 @@ use Illuminate\Validation\Validator as ValidationValidator;
 
 class AccountController extends Controller
 {
+
+    public function __construct(private UserRepository $userRepository)
+    {
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -20,7 +26,6 @@ class AccountController extends Controller
      */
     public function index()
     {
-        //User Authentication
         $user = Auth::user();
 
         return view('account.index')->with([
@@ -38,7 +43,6 @@ class AccountController extends Controller
      */
     public function create()
     {
-        //User Authentication
         $user = Auth::user();
 
         return view('account.create')->with([
@@ -57,9 +61,7 @@ class AccountController extends Controller
      */
     public function store(Request $request)
     {
-        //Data Validation
-        $validator = $this->verifyData($request);
-        $this->validateData($validator);
+        $this->validateData($request);
         $avatarPath = $this->newAvatar($request);
         
         $data = $request->except('_token', 'confirm_password');
@@ -67,7 +69,7 @@ class AccountController extends Controller
         $data['admin_mode'] = 0;
         $data['avatar'] = $avatarPath;
 
-        User::create($data);
+        $this->userRepository->create($data);
 
         $client = $data['login'];
 
@@ -199,7 +201,7 @@ class AccountController extends Controller
         return $file->getClientOriginalExtension();
     }
 
-    public function verifyData(Request $request)
+    public function verifyData(Request $request): ValidationValidator
     {
         return Validator::make($request->except('_token'), [
             'login' => 'required|regex:/^[a-zA-Z0-9\s\-\_]+$/',
@@ -221,8 +223,10 @@ class AccountController extends Controller
         ]);
     }
 
-    public function validateData(ValidationValidator $validator)
+    public function validateData(Request $request)
     {
+        $validator = $this->verifyData($request);
+
         if ($validator->fails()) {
             return redirect()
                 ->back()

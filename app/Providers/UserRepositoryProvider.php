@@ -11,6 +11,7 @@ class UserRepositoryProvider extends ServiceProvider
     public array $bindings = [
         UserRepository::class => EloquentUserRepository::class
     ];
+    
     /**
      * Register services.
      *
@@ -18,7 +19,7 @@ class UserRepositoryProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        // $this->app->bind(UserRepository::class, EloquentUserRepository::class);
     }
 
     /**

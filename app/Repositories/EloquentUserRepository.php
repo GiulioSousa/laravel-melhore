@@ -6,9 +6,9 @@ use App\Models\User;
 
 class EloquentUserRepository implements UserRepository
 {
-    public function store(array $data): User
+    public function create(array $data): User
     {
-        return User::store($data);
+        return User::create($data);
     }
 
     public function update(User $user, array $data): bool
@@ -16,9 +16,9 @@ class EloquentUserRepository implements UserRepository
         return $user->update($data);
     }
 
-    public function destroy(User $user): bool
+    public function delete(User $user): bool
     {
-        return $user->destroy($user->id);
+        return $user->delete($user->id);
     }
 
     public function findById($id): ?User
