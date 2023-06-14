@@ -107,7 +107,6 @@ class AccountController extends Controller
 
         $data['avatar'] = $avatarPath;
 
-        // $user->update($data);
         $this->userRepository->update($user, $data);
 
         if ($user->admin_mode) {
