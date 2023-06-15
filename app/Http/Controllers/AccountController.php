@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AccountFormRequest;
 use App\Models\User;
 use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
@@ -56,24 +57,21 @@ class AccountController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \App\Http\Requests\AccountFormRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(AccountFormRequest $request)
     {
-        $this->validateData($request);
         $avatarPath = $this->newAvatar($request);
         
-        $data = $request->except('_token', 'confirm_password');
+        $data = $request->only('login', 'email', 'password');
         $data['password'] = Hash::make($data['password']);
         $data['admin_mode'] = 0;
         $data['avatar'] = $avatarPath;
 
         $this->userRepository->create($data);
 
-        $client = $data['login'];
-
-        return to_route('panel.index')->with('message.success', "Cliente {$client} criado com sucesso.");
+        return to_route('panel.index')->with('message.success', "Cliente {$data['login']} criado com sucesso.");
     }
 
     /**
