@@ -33,6 +33,7 @@ class ClientInfoController extends Controller
             ->with([
                 'style' => 'css/panel/style.css',
                 'clientName' => $client->login,
+                'clientId' => $client->id,
                 'user' => $user,
                 'home' => 'panel.index',
                 'videosHighlight' => $videosHighlight,
