@@ -114,7 +114,7 @@ class AccountController extends Controller
         return to_route('client-area.index')
             ->with('message.success', "Usuário {$data['login']} alterado com sucesso.");
     }
-    
+
     /** 
      * Remove the specified resource from storage
      * 
@@ -123,12 +123,10 @@ class AccountController extends Controller
     public function destroy($id)
     {
         $user = User::find($id);
-        $user->delete();
+        $this->userRepository->delete($user);
 
         return to_route('panel.index')->with('message.success', 'Cliente excluído com sucesso');
         //implementar exclusão do arquivo de avatar do armazenamento
-        //Verificar a situação dos videos relacionados ao user_id
-        //UTILIZAR O SISTEMA DE REPOSITÓRIOS
     }
     
     public function newAvatar(Request $request): string
