@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Validator as ValidationValidator;
 
 class AccountController extends Controller
 {
@@ -92,13 +91,13 @@ class AccountController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\AccountFormRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(AccountFormRequest $request)
     {
         $user = Auth::user();
-        $data = $request->except('_token', 'confirm_password');
+        $data = $request->only('login', 'email', 'password');
         $data['password'] = Hash::make($data['password']);
 
         $avatarPath = $this->updateAvatar($request);
@@ -115,6 +114,7 @@ class AccountController extends Controller
         return to_route('client-area.index')
             ->with('message.success', "Usuário {$data['login']} alterado com sucesso.");
     }
+    
     /** 
      * Remove the specified resource from storage
      * 
@@ -197,39 +197,5 @@ class AccountController extends Controller
         Validator::validate(Arr::wrap($file), $rules, $messages);
             
         return $file->getClientOriginalExtension();
-    }
-
-    public function verifyData(Request $request): ValidationValidator
-    {
-        return Validator::make($request->except('_token'), [
-            'login' => 'required|regex:/^[a-zA-Z0-9\s\-\_]+$/',
-            'email' => [
-                'required', 
-                'regex:/^[\w\-\.]+\@[\w-]+\.[\w-]+\.[\w-]{2}|[\w\-]+\@[\w]+\.[\w-]+$/i',
-                'max:16'
-            ],
-            'password' => 'required|regex:/^[\w\+\=\-\*\.\!\@\#\$\%\&\*]+/'
-        ],
-        [
-            'login.required' => 'Este campo é obrigatório',
-            'login.regex' => 'Este campo não deve ter caracteres especiais',
-            'email.required' => 'Este campo é obrigatório',
-            'email.regex' => 'Formato de e-mail inválido',
-            'email.max' => 'Senha deve conter até 16 caracteres',
-            'password.required' => 'Este campo é obrigatório',
-            'password.regex' => 'Recomendamos senhas com letras e números'
-        ]);
-    }
-
-    public function validateData(Request $request)
-    {
-        $validator = $this->verifyData($request);
-
-        if ($validator->fails()) {
-            return redirect()
-                ->back()
-                ->withErrors($validator)
-                ->withInput(); 
-        }
     }
 }
