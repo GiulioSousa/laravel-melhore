@@ -133,7 +133,7 @@ class AccountController extends Controller
     {
         if ($request->hasFile('avatar')) {
             $file = $request->file('avatar');
-            $extension = $this->extensionValidate($request);
+            $extension = $file->getClientOriginalExtension();
             $avatarPath = $file->storeAs(
                 'img/profile-avatar',
                 $request['login'] . '.' . $extension
