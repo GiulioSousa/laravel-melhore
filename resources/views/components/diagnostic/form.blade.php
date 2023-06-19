@@ -9,7 +9,7 @@
         <div class="form__area">
             <div class="form__field">
                 <div class="form__input-box">
-                    <input type="textarea" name="diagnostic_text" value="{{ old('diagnostic_text', $route == 'diagnostic.store' ? '' : $diagnostic->diagnostic_text) }}" required>
+                    <input type="text" name="diagnostic_text" value="{{ old('diagnostic_text', ($route == 'diagnostic.store') ? '' : $diagnostic->diagnostic_text) }}" required>
                     <label for="diagnostic_text" class="form__label">Diagnóstico</label>
                     <span class="form__line"></span>
                     @error('diagnostic_text')

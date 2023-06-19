@@ -32,7 +32,7 @@ class AccountFormRequest extends FormRequest
         ];
     }
 
-    function messages()
+    public function messages()
     {
         return [
             'avatar.image' => 'Formato de arquivo inválido',

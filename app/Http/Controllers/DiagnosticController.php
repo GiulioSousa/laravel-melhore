@@ -2,17 +2,23 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\DiagnosticFormRequest;
 use App\Models\Diagnostic;
-use App\Models\User;
+use App\Repositories\DiagnosticRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Validator;
 
 class DiagnosticController extends Controller
 {
+    public function __construct(private DiagnosticRepository $diagnosticRepository)
+    {
+        //
+    }
+
     /**
      * Show the form for creating a new resource.
      *
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function create(Request $request)
@@ -34,38 +40,31 @@ class DiagnosticController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\DiagnosticFormRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(DiagnosticFormRequest $request)
     {
-        $validator = $this->verifyData($request);
-
-        if ($validator->fails()) {
-            return redirect()
-                ->back()
-                ->withErrors($validator)
-                ->withInput();
-        }
-
         $data = $request->except('_token');
-               
-        $client = User::find($request->user_id);
-        $client->diagnostics()->create($data);
+        $id = $request->user_id;
 
-        return to_route('client-info.index', $request->user_id)
+        $this->diagnosticRepository->create($id, $data);
+               
+        return to_route('client-info.index', $id)
             ->with('message.success', 'Diagnóstico adicionado com sucesso.');
     }
 
     /**
      * Show the form for editing the specified resource.
-     *
+     * 
+     * @param \App\Models\Diagnostic $diagnostic
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function edit(Request $request, Diagnostic $diagnostic)
     {
-        $diagnostic = Diagnostic::find($request->id);
         $user = Auth::user();
+        $diagnostic = $this->diagnosticRepository->findDiagnostic($request->id);
 
         return view('diagnostic.edit')->with([
             'title' => 'Editar diagnóstico - Painel administrativo | Melhore',
@@ -83,25 +82,15 @@ class DiagnosticController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Http\Requests\DiagnosticFormRequest  $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Diagnostic $diagnostic, Request $request, $id)
+    public function update(DiagnosticFormRequest $request, $id)
     {
-        $validator = $this->verifyData($request);
+        $users_id = $this->diagnosticRepository->update($id, $request->except('_token'));
 
-        if ($validator->fails()) {
-            return redirect()
-                ->back()
-                ->withErrors($validator)
-                ->withInput();
-        }
-        
-        $diagnostic = Diagnostic::find($id);
-        $diagnostic->update($request->except('_token'));
-
-        return to_route('client-info.index', $diagnostic->users_id)
+        return to_route('client-info.index', $users_id)
             ->with('message.success', 'Diagnóstico atualizado com sucesso.');
     }
 
@@ -111,23 +100,11 @@ class DiagnosticController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(int $id)
     {
-        $diagnostic = Diagnostic::find($id);
-        $diagnostic->delete();
+        $users_id = $this->diagnosticRepository->delete($id);
 
-        return to_route('client-info.index', $diagnostic->users_id)
+        return to_route('client-info.index', $users_id)
             ->with('message.success', 'Diagnóstico excluído com sucesso.');
-    }
-
-    public function verifyData(Request $request)
-    {
-        return Validator::make($request->except('_token'), [
-            'diagnostic_text'=> [
-                'required', 
-                'string',
-                'regex:/^[a-zA-Z0-9À-úçÇ\s.,:;?!]*$/'
-            ]
-        ]);
     }
 }

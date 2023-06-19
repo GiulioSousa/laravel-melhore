@@ -2,16 +2,16 @@
 
 namespace App\Providers;
 
-use App\Repositories\EloquentUserRepository;
-use App\Repositories\UserRepository;
+use App\Repositories\DiagnosticRepository;
+use App\Repositories\EloquentDiagnosticRepository;
 use Illuminate\Support\ServiceProvider;
 
-class UserRepositoryProvider extends ServiceProvider
+class DiagnosticRepositoryProvider extends ServiceProvider
 {
     public array $bindings = [
-        UserRepository::class => EloquentUserRepository::class
+        DiagnosticRepository::class =>
+        EloquentDiagnosticRepository::class
     ];
-    
     /**
      * Register services.
      *

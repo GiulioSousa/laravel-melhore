@@ -20,10 +20,4 @@ class EloquentUserRepository implements UserRepository
     {
         return $user->delete($user->id);
     }
-
-    public function findById($id): ?User
-    {
-        return User::find($id);
-    }
-    // Implemente outros métodos do repositório, se necessário
 }

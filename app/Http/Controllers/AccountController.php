@@ -14,8 +14,10 @@ class AccountController extends Controller
     use AvatarTrait;
     
     public function __construct(private UserRepository $userRepository)
-    {    
+    {   
+        // 
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -77,10 +79,12 @@ class AccountController extends Controller
      */
     public function edit()
     {
+        $user = Auth::user();
+
         return view('account.edit')->with([
             'title' => 'Editar conta | Melhore',
             'style' => 'css/style.css',
-            'user' => Auth::user(),
+            'user' => $user,
             'home' => 'panel.index'
         ]);
     }
