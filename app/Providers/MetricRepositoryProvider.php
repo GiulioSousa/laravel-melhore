@@ -2,17 +2,17 @@
 
 namespace App\Providers;
 
-use App\Repositories\DiagnosticRepository;
-use App\Repositories\EloquentDiagnosticRepository;
+use App\Repositories\EloquentMetricRepository;
+use App\Repositories\MetricRepository;
 use Illuminate\Support\ServiceProvider;
 
-class DiagnosticRepositoryProvider extends ServiceProvider
+class MetricRepositoryProvider extends ServiceProvider
 {
     public array $bindings = [
-        DiagnosticRepository::class =>
-        EloquentDiagnosticRepository::class
+        MetricRepository::class =>
+        EloquentMetricRepository::class
     ];
-    
+
     /**
      * Register services.
      *

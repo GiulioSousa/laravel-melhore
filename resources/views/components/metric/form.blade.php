@@ -9,7 +9,7 @@
             <div class="form__area">
                 <div class="form__field">
                     <div class="form__input-box">
-                        <input type="date" name="date" value="{{ old('date', $route == 'metric.store' ? "" : $metric->date) }}" required>
+                        <input type="date" name="date" value="{{ old('date', ($route == 'metric.store') ? '' : $metric->date) }}" required>
                         <label for="date" class="form__label">Data</label>
                         <span class="form__line"></span>
                         @error('date')

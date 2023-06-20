@@ -196,7 +196,8 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         App\Providers\UserRepositoryProvider::class,
-        App\Providers\DiagnosticRepositoryProvider::class
+        App\Providers\DiagnosticRepositoryProvider::class,
+        App\Providers\MetricRepositoryProvider::class
 
     ],
 

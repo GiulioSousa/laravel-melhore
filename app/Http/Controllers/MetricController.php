@@ -2,22 +2,29 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\MetricFormRequest;
 use App\Models\Metric;
-use App\Models\User;
+use App\Repositories\MetricRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Validator;
 
 class MetricController extends Controller
 {
+    public function __construct(private MetricRepository $metricRepository)
+    {
+        //
+    }
+
     /**
      * Show the form for creating a new resource.
      *
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function create(Request $request)
     {
         $user = Auth::user();
+        $id = $request->id;
 
         return view('metric.create')->with([
             'title' => 'Nova Métrica - Painel administrativo | Melhore',
@@ -26,7 +33,7 @@ class MetricController extends Controller
             'user' => $user,
             'route' => 'metric.store',
             'arrayData' => [
-                'user_id' => $request->id
+                'user_id' => $id
             ]
         ]);
     }
@@ -34,39 +41,31 @@ class MetricController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\MetricFormRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(MetricFormRequest $request)
     {
-        // dd($request->all());
-        $validator = $this->verifyData($request);
-
-        if ($validator->fails()) {
-            return redirect()
-                ->back()
-                ->withErrors($validator)
-                ->withInput();
-        }
-
         $data = $request->except('_token');
-               
-        $client = User::find($request->user_id);
-        $client->metrics()->create($data);
+        $id = $request->user_id;
 
-        return to_route('client-info.index', $request->user_id)
-            ->with('message.success', 'Métrica criada com sucesso.');
+        $this->metricRepository->create($id, $data);
+
+        return to_route('client-info.index', $id)
+            ->with('message.success', 'Métrica adicionada com sucesso.');
     }
 
     /**
      * Show the form for editing the specified resource.
      *
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Metric $metric
      * @return \Illuminate\Http\Response
      */
     public function edit(Request $request, Metric $metric)
     {
-        $metric = Metric::find($request->id);
         $user = Auth::user();
+        $metric = $this->metricRepository->findMetric($request->id);
 
         return view('metric.edit')->with([
             'title' => 'Editar métrica - Painel administrativo | Melhore',
@@ -84,25 +83,15 @@ class MetricController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\MetricFormRequest  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Metric $metric, Request $request, $id)
+    public function update(MetricFormRequest $request, $id)
     {
-        $validator = $this->verifyData($request);
+        $users_id = $this->metricRepository->update($id, $request->except('_token'));
 
-        if ($validator->fails()) {
-            return redirect()
-                ->back()
-                ->withErrors($validator)
-                ->withInput();
-        }
-        
-        $metric = Metric::find($id);
-        $metric->update($request->except('_token'));
-
-        return to_route('client-info.index', $metric->users_id)
+        return to_route('client-info.index', $users_id)
             ->with('message.success', 'Métrica atualizada com sucesso.');
     }
 
@@ -114,25 +103,9 @@ class MetricController extends Controller
      */
     public function destroy($id)
     {
-        $metric = Metric::find($id);
-        $metric->delete();
-
-        return to_route('client-info.index', $metric->users_id)
+        $users_id = $this->metricRepository->delete($id);
+        
+        return to_route('client-info.index', $users_id)
             ->with('message.success', 'Métrica excluída com sucesso.');
-    }
-
-    public function verifyData(Request $request)
-    {
-        return Validator::make($request->except('_token'), [
-            'date' => 'required|date',
-            'metric_data' => 'required|numeric'
-        ],
-        [
-            'date.required' => 'Este campo é obrigatório',
-            'date.date' => 'Formato de data incorreto',
-            'metric_data.required' => 'Este campo é obrigatório',
-            'metric_data.numeric' => 'Somente números são permitidos neste campo'
-        ]
-    );
     }
 }
