@@ -197,8 +197,8 @@ return [
 
         App\Providers\UserRepositoryProvider::class,
         App\Providers\DiagnosticRepositoryProvider::class,
-        App\Providers\MetricRepositoryProvider::class
-
+        App\Providers\MetricRepositoryProvider::class,
+        App\Providers\VideoRepositoryProvider::class
     ],
 
     /*

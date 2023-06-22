@@ -1,15 +1,15 @@
--Implementação do FormRequest
+-Implementação do FormRequest <!-- Implementado -->
     -AccountController <!-- Implementado -->
     -DiagnosticController <!-- Implementado -->
     -MetricController <!-- Implementado -->
-    -VideoController
+    -VideoController <!-- Implementado -->
 
 -Implementação dos repositórios {
     -AccountController <!-- Implementado -->
     -DiagnosticController <!-- Implementado -->
     -LoginController
     -MetricController <!-- Implementado -->
-    -VideoController
+    -VideoController <!-- Implementado -->
 }
 
 -Revisar CSS das mensagens de erro na view account.create
@@ -23,4 +23,4 @@
 -Alinhamento dos botões editar e excluir em Métricas
 -Boas práticas de UI/UX em Material.io
 
-Estado/arquivo atual: DiagnosticController <!-- OK -->
+Estado/arquivo atual: VideoController
