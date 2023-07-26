@@ -44,7 +44,7 @@ body {
     font-size: 2rem;
     font-weight: 700;
     text-transform: uppercase;
-    padding: 1.5rem;
+    padding: 1rem;
     text-align: center;
     color: #fff;
 }
@@ -110,9 +110,10 @@ body {
 }
 
 .form {
-    max-width: 500px;
+    width: 500px;
     display: grid;
     padding: 2rem;
+    row-gap: 2rem;
 }
 
 .form__title {
@@ -129,13 +130,13 @@ body {
     width: 100%;
     display: flex;
     flex-direction: column;
+    row-gap: 32px;
 }
 
 .form__field {
     position: relative;
     width: 100%;
-    padding: 0 0 1rem 0;
-    margin: 15px 0 20px;
+    height: 72px;
     display: flex;
     justify-content: center;
 }
@@ -209,12 +210,12 @@ body {
 }
 
 .form__btn-submit {
+    height: 3rem;
     border: none;
     padding: 10px 40px;
-    outline: none;
     background: #fc0;
     color: #000;
-    font-weight: 600;
+    font-weight: 700;
     font-size: 18px;
     border-radius: 10px;
     text-decoration: none;
@@ -365,15 +366,15 @@ body {
 }
 
 .icon--wpp {
-    background-image: url('../img/icone-wpp.png');
+    background-image: url('../../img/icone-wpp.png');
 }
 
 .icon--yt {
-    background-image: url('../img/icone-yt.png');
+    background-image: url('../../img/icone-yt.png');
 }
 
 .icon--insta {
-    background-image: url('../img/icone-insta.png');
+    background-image: url('../../img/icone-insta.png');
 }
 
 .section-highlight__logo {
@@ -417,13 +418,18 @@ tr {
     height: 50px;
 }
 
-.btn-delete {
+.form-delete {
     align-self: flex-end;
+}
+
+.btn-delete {
     background-color: rgba(255, 0, 0, .3);
     padding: 1rem;
     font-weight: 600;
     transition: .5s;
     margin: 1.5rem 1.5rem 0 0;
+    color: #fff;
+    cursor: pointer;
 }
 
 .btn-delete:hover {
@@ -500,7 +506,14 @@ input[type="file"] {
     width: 100%;
     padding: 1rem;
     font-weight: 700;
-    margin-top: 1.5rem;
+    margin: 1.5rem 0;
+}
+
+.form__alert {
+    position: absolute;
+    bottom: -20px;
+    color: #ff3c3c;
+    font-size: 14px;
 }
 
 .message--error {
@@ -513,6 +526,23 @@ input[type="file"] {
 
 .message--warning {
     background-color: rgba(255, 255, 0, .5);
+}
+
+.btn-form__container {
+    display: flex;
+    justify-content: center;
+    align-self: flex-end;
+    align-items: center;
+    width: 200px;
+    padding: 1rem;
+}
+
+.btn-form {
+    padding: .75rem;
+    font-weight: 700;
+    border-radius: .25rem;
+    display: flex;
+    justify-content: center;
 }
 
 .client-list {
@@ -621,13 +651,15 @@ input[type="file"] {
     align-self: flex-end;
 }
 
-.menu__edit-delete a {
+.menu__edit-delete a,
+.menu__edit-delete form {
     background-color: rgba(255, 255, 255, .1);
     border-radius: .5rem;
     transition: .5s;
 }
 
-.menu__edit-delete a:hover {
+.menu__edit-delete a:hover,
+.menu__edit-delete form:hover {
     background-color: rgba(255, 204, 0, .3);
     transition: .5s;
 }
@@ -668,13 +700,14 @@ input[type="file"] {
 }
 
 .btn-delete--content {
-    width: 75px;
-    /* text-align: center; */
+    width: 80px;
+    height: 40px;
     font-weight: 700;
     padding: .5rem 1rem;
     border-radius: .25rem;
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 
 @media screen and (max-width: 768px) {
