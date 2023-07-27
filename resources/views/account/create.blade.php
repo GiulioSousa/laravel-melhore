@@ -77,7 +77,7 @@
                                 Senha
                             </label>
                             <span class="form__line"></span>
-                            @error('avatar')
+                            @error('password')
                                 <div class="form__alert">
                                     {{ $message }}
                                 </div>

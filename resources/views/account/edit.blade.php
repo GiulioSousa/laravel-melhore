@@ -15,8 +15,7 @@
                         <input 
                             type="file" 
                             name="avatar" 
-                            id="avatar"
-                            value="{{ old('avatar') }}">
+                            id="avatar">
                         <label 
                             for="avatar" class="account__profile-link">
                             Alterar imagem
@@ -34,30 +33,65 @@
                 </div>
                 <div class="form__field">
                     <div class="form__input-box">
-                        <input type="text" name="login" value="{{ $user->login }}" required>
-                        <label for="login" class="form__label">Nome de usuário</label>
+                        <input 
+                            type="text" 
+                            name="login" 
+                            value="{{ $user->login }}" required>
+                        <label for="login" class="form__label">
+                            Nome de usuário
+                        </label>
                         <span class="form__line"></span>
+                        @error('login')
+                            <div class="form__alert">
+                                {{ $message }}
+                            </div>
+                        @enderror
                     </div>
                 </div>
                 <div class="form__field">
                     <div class="form__input-box">
-                        <input type="email" name="email" value="{{ $user->email }}" required>
+                        <input 
+                            type="email" 
+                            name="email" 
+                            value="{{ $user->email }}" 
+                            required>
                         <label for="email" class="form__label">E-mail</label>
                         <span class="form__line"></span>
+                        @error('email')
+                            <div class="form__alert">
+                                {{ $message }}
+                            </div>
+                        @enderror
                     </div>
                 </div>
                 <div class="form__field">
                     <div class="form__input-box">
-                        <input type="password" name="password" required>
+                        <input 
+                        type="password" 
+                        name="password" 
+                        required>
                         <label for="password" class="form__label">Senha</label>
                         <span class="form__line"></span>
+                        @error('password')
+                            <div class="form__alert">
+                                {{ $message }}
+                            </div>
+                        @enderror
                     </div>
                 </div>
                 <div class="form__field">
                     <div class="form__input-box">
-                        <input type="password" name="confirm_password" required>
+                        <input 
+                            type="password" 
+                            name="confirm_password" 
+                            required>
                         <label for="password" class="form__label">Confirmar senha</label>
                         <span class="form__line"></span>
+                        @error('confirm_password')
+                            <div class="form__alert">
+                                {{ $message }}
+                            </div>
+                        @enderror
                     </div>
                 </div>
             </div>
