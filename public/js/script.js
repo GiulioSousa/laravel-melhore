@@ -30,3 +30,4 @@ headerMenu.addEventListener('click', () => {
     headerMenu.classList.toggle('header__menu--active');
     lateralMenu.classList.toggle('lateral-menu--active');
 });
+

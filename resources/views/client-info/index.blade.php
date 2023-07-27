@@ -99,7 +99,7 @@
             @method('DELETE')
             <button class="card btn-delete">Excluir perfil</button>
         </form>
-
+        
     <x-footer />
     </main> 
 </x-layout>
