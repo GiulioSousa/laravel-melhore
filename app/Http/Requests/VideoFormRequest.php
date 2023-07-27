@@ -24,8 +24,14 @@ class VideoFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|regex:/^[À-ú\w\s.,:;?!]+$/',
-            'description' => 'required|regex:/^[À-ú\w\s\d\/\-\_\.\:\=\?]+$/',
+            'title' => [
+                'required',
+                'regex:/^[À-ú\w\s.,:;?!|]+$/'
+            ],
+            'description' => [
+                'required',
+                'regex:/^[À-ú\w\s\d\/\-\_\.\:\=\?\|]+$/'   
+            ],
             'url' => ['required', 'url', 'regex:/^(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/watch\?v=|youtu\.be\/)(?:[\w-]{11})/']
         ];
     }
