@@ -20,18 +20,18 @@
 
 .bg-img--logo {
     background-image: url('../../img/logo-transp.png');
-    top: 10%;
+    top: 0;
     left: 10%;
 }
 
 .bg-img--simbolo {
     background-image: url('../../img/logo-simbolo-fundo.png');
-    bottom: 10%;
+    bottom: 0;
     right: 10%;
 }
 
 @media screen and (max-width:768px) {
     .bg-img {
-        width: 100%;
+        width: 300px;
     }
 }

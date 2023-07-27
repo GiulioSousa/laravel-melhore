@@ -141,6 +141,11 @@ body {
     justify-content: center;
 }
 
+.form__img {
+    height: 240px;
+    flex-direction: column;
+}
+
 .input__img {
     display: flex;
     justify-content: center;
@@ -514,6 +519,13 @@ input[type="file"] {
     bottom: -20px;
     color: #ff3c3c;
     font-size: 14px;
+}
+
+.form__alert--img {
+    position: relative;
+    text-align: center;
+    bottom: 0;
+    padding: 1rem;
 }
 
 .message--error {
