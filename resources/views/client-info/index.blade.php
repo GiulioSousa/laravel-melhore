@@ -42,10 +42,10 @@
                             <td>{{ $metric->metric_data }}</td>
                             <td>
                                 <div class="metric-menu">
-                                    <span class="metric-menu__btn">...</span>
-                                    <span class="card metric-menu__btn-close">Fechar</span>
+                                    <button class="metric-menu__btn">...</button>
+                                    <button class="card metric-menu__btn-close">Fechar</button>
                                     <a href="{{ route('metric.edit', $metric->id) }}" class="btn-delete--content card metric-menu__edit">Editar</a>
-                                    <form action="{{ route('metric.destroy', $metric->id) }}" method="post">
+                                    <form action="{{ route('metric.destroy', $metric->id) }}" method="post" class="metric-menu__form">
                                         @csrf
                                         @method('DELETE')
                                         <button class="btn-delete--content card metric-menu__delete">Excluir</button>

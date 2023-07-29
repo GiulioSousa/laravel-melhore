@@ -172,10 +172,18 @@
         box-shadow: 2px 2px 3px rgba(0, 0, 0, .5);
     }
 
+    .metric-menu__form {
+        display: none;
+    }
+
+    .metric-menu__form--active {
+        display: block;
+    }
+
     .metric-menu__btn {
         font-size: 1.5rem;
         user-select: none;
-        transition: 1s;
+        /* transition: 1s; */
     }
 
     .btn-delete--content {
@@ -183,7 +191,9 @@
     }
 
     .invisible {
-        display: none;
+        /* display: none; */
+        opacity: 0;
+        /* color: #F0F; */
         /* transition: 1s; */
     }
 

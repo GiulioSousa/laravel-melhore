@@ -1,8 +1,8 @@
 let header = document.querySelector('.header');
-let headerLogoColor = document.querySelector('#logo-color');
-let headerLogoTransp = document.querySelector('#logo-transp');
+let headerLogoColor = header.querySelector('#logo-color');
+let headerLogoTransp = header.querySelector('#logo-transp');
 let headerMenu = document.querySelector('.header__menu');
-let headerMenuIc = document.querySelectorAll('.menu-ic');
+let headerMenuIc = headerMenu.querySelectorAll('.menu-ic');
 let lateralMenu = document.querySelector('.lateral-menu');
 
 window.addEventListener('scroll', () => {
