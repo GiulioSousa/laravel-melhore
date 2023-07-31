@@ -2,7 +2,7 @@
     <x-header :login="$user->login" :home="$home" :avatar="$user->avatar" />
     <main class="main-container card-container">
         <section class="section card">
-            <h3 class="section-title">Informações da conta</h3>
+            <h3 class="title section-title">Informações da conta</h3>
             <div class="account__container">
                 <img src="{{ asset('storage/' . $user->avatar) }}" alt="Foto de perfil do usuário" class="account__profile">
                 <div class="account__field">

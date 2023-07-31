@@ -25,7 +25,7 @@
 <nav class="lateral-menu">
     <ul class="lateral-menu__list">
         <li class="card">
-            <a class="lateral-menu__link" id="menu-inicio" href="#">Home</a>
+            <a class="lateral-menu__link" id="menu-inicio" href="/">Home</a>
         </li>
         <li class="card">
             <a class="lateral-menu__link" id="menu-laudo" href="/info-conta">Informações da conta</a>

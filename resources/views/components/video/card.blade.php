@@ -1,5 +1,5 @@
 <section class="section">
-    <h2 class="section-title">{{ $title }}</h2>
+    <h2 class="title section-title">{{ $title }}</h2>
     <ul class="section-list">
         @foreach ($videos as $video)
             <li class="section-videos__item card">

@@ -15,14 +15,13 @@ class LoginController
             return redirect()->back()->with('message.error', 'Usuário ou senha inválidos');
         }
 
+        $login = Auth::user()->login;
+
         if (Auth::user()->admin_mode) {
-            $login = Auth::user()->login;
-            // $request->session()->flash('message.success', "Bem vindo, {$login}");
-            // dd($request->session());
-            return to_route('panel.index')->with('message.success', "Bem vindo, {$login}");
+            return to_route('panel.index')->with('message.success', "Bem vindo(a), {$login}");
         }
 
-        return to_route('client-area.index');
+        return to_route('client-area.index')->with('message.success', "Bem vindo(a), {$login}");
     }
 
     /**

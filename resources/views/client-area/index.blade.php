@@ -1,7 +1,7 @@
 <x-layout title="{{ $title }}" :style="$style">
     <x-header :login="$user->login" :home="$home" :avatar="$user->avatar" />
     <main class="main-container">
-        <h1 class="section-title">Bem vindo, {{ $user->login }}</h1>
+        <x-message />
         <section class="section">
             @foreach ($videosHighlight as $video)
                 <h1 class="section-title">{{ $video->title }}</h1>
@@ -15,7 +15,7 @@
             <img src="{{ asset('img/logo-transp.png') }}" alt="" class="section-highlight__logo-img">
         </div>
         <section class="section" id="laudo">
-            <h2 class="section-title">Dados do Cliente</h2>
+            <h2 class="section-title">Métricas</h2>
             <table>
                 <thead>
                     <tr>

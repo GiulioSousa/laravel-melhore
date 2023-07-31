@@ -5,7 +5,7 @@
             @if ($route != 'metric.store')
                 @method('PUT')
             @endif
-            <h3 class="section-title"> {{ $title }} </h3>
+            <h3 class="title section-title"> {{ $title }} </h3>
             <div class="form__area">
                 <div class="form__field">
                     <div class="form__input-box">

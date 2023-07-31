@@ -8,7 +8,7 @@
                 method="post" 
                 enctype="multipart/form-data">
                 @csrf
-                <h3 class="form__title">Nova conta</h3>
+                <h3 class="form__title">Criar conta</h3>
                 <div class="form__area">
                     <div class="form__field form__img">
                         <div class="input__img">
