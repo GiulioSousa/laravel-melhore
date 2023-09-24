@@ -26,7 +26,7 @@
                                 class="account__profile">
                         </div>
                         @error('avatar')
-                            <div class="form__alert">
+                            <div class="form__alert form__alert--img">
                                 {{ $message }}
                             </div>
                         @enderror

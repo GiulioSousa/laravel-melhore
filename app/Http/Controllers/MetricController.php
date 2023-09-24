@@ -66,6 +66,9 @@ class MetricController extends Controller
     {
         $user = Auth::user();
         $metric = $this->metricRepository->findMetric($request->id);
+        
+        $dateArray = explode(' ', $metric->date);
+        $metric->date = $dateArray[0];
 
         return view('metric.edit')->with([
             'title' => 'Editar métrica - Painel administrativo | Melhore',

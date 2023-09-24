@@ -2,7 +2,6 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    /* user-select: text; */
 }
 
 html {
@@ -66,9 +65,7 @@ body {
     width: 100%;
     display: grid;
     grid-template: 30% 1fr / 45% 1fr;
-    /* align-items: center; */
     column-gap: 1rem;
-    /* margin-bottom: 1rem; */
     min-height: 240px;
     height: auto;
 }
@@ -193,7 +190,6 @@ body {
     padding: 0 10px;
     display: block;
     transition: .5s;
-    /* pointer-events: none; */
     color: #fff;
 }
 
@@ -212,7 +208,6 @@ body {
     background: #fc0;
     transition: .5s;
     border-radius: 2px;
-    /* pointer-events: none; */
 }
 
 .form__input-box input:focus~.form__line,
@@ -319,6 +314,33 @@ body {
     display: flex;
     align-items: center;
     column-gap: 1.5rem;
+}
+
+.menu__list li {
+    display: flex;
+    align-items: center;
+}
+
+.menu__list li a {
+    height: 1.5rem;
+    position: relative;
+    padding-bottom: 4px;
+}
+
+.menu__list li a::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 4px;
+    background-color: #fff;
+    border-radius: 2px;
+    transition: 0.1s ease-in-out;
+}
+
+.menu__list li a:hover::before {
+    width: 100%;
 }
 
 .menu__link {
@@ -638,7 +660,6 @@ input[type="file"] {
 }
 
 .item-btn-add {
-    /* width: 50%; */
     border-radius: 2rem;
     display: flex;
     justify-content: center;

@@ -27,7 +27,7 @@ class ClientAreaController extends Controller
         
         return view('client-area.index')->with([
             'title' => 'home - Área do cliente | Melhore',
-            'style' => 'css/style.css',
+            'style' => 'css/panel/style.css',
             'home' => 'client-area.index',
             'user' => $user,
             'videosHighlight' => $videosHighlight,

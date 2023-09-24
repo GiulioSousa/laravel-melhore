@@ -4,7 +4,7 @@
         <x-message />
         <section class="section">
             @foreach ($videosHighlight as $video)
-                <h1 class="section-title">{{ $video->title }}</h1>
+                <h1 class="title section-title">{{ $video->title }}</h1>
                 <div class="section-videobox">
                     <iframe class="video card" width="560" height="315" src="https://www.youtube.com/embed/{{ $video->url }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 </div>
@@ -15,7 +15,7 @@
             <img src="{{ asset('img/logo-transp.png') }}" alt="" class="section-highlight__logo-img">
         </div>
         <section class="section" id="laudo">
-            <h2 class="section-title">Métricas</h2>
+            <h2 class="title section-title">Métricas</h2>
             <table>
                 <thead>
                     <tr>
@@ -32,13 +32,13 @@
                     @endforeach
                 </tbody>
             </table>
-            <h3 class="section-title">Diagnóstico</h3>
+            <h3 class="title section-title">Diagnóstico</h3>
             @foreach ($diagnostics as $diagnostic)
                 <p class="section-text">{{ $diagnostic->diagnostic_text }}</p>
             @endforeach
         </section>
         <section class="section" id="o-que-faremos">
-            <h3 class="section-title">O que faremos</h3>
+            <h3 class="title section-title">O que faremos</h3>
             @foreach ($videosWhatDo as $video)
                 <article class="section-videos__item card">
                     <div class="list-videobox">
@@ -50,7 +50,7 @@
             @endforeach
         </section>
         <section class="section" id="como-faremos">
-            <h3 class="section-title">Como faremos</h3>
+            <h3 class="title section-title">Como faremos</h3>
             @foreach ($videosHowDo as $video)
                 <article class="section-videos__item card">
                     <div class="list-videobox">
@@ -62,7 +62,7 @@
             @endforeach
         </section>
         <section class="section" id="equipe">
-            <h3 class="section-title">Processos da equipe</h3>
+            <h3 class="title section-title">Processos da equipe</h3>
             @foreach ($videosTeam as $video)
                 <article class="section-videos__item card">
                     <div class="list-videobox">

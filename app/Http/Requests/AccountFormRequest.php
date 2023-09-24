@@ -32,6 +32,11 @@ class AccountFormRequest extends FormRequest
         ];
     }
 
+    /**
+     * Show the error messages for each rule.
+     *
+     * @return array<string, mixed>
+     */
     public function messages()
     {
         return [

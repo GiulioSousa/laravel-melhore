@@ -46,7 +46,7 @@ class AccountController extends Controller
 
         return view('account.create')->with([
             'title' => 'Novo cliente - Painel Administrativo | Melhore',
-            'style' => 'css/style.css',
+            'style' => 'css/panel/style.css',
             'user' => $user,
             'home' => 'panel.index'
         ]);
@@ -83,7 +83,7 @@ class AccountController extends Controller
 
         return view('account.edit')->with([
             'title' => 'Editar conta | Melhore',
-            'style' => 'css/style.css',
+            'style' => 'css/panel/style.css',
             'user' => $user,
             'home' => 'panel.index'
         ]);

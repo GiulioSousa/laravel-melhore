@@ -30,7 +30,7 @@ class VideoFormRequest extends FormRequest
             ],
             'description' => [
                 'required',
-                'regex:/^[À-ú\w\s\d\/\-\_\.\:\=\?\|]+$/'   
+                'regex:/^[À-ú\w\s\d\/\-\_\.\,\:\=\?\!\|]+$/'   
             ],
             'url' => ['required', 'url', 'regex:/^(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/watch\?v=|youtu\.be\/)(?:[\w-]{11})/']
         ];
